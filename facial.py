@@ -1,6 +1,7 @@
 import cv2
 import os
 import numpy as np
+import pyttsx3
 
 # Initialize Face Recognition Model
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
@@ -32,6 +33,14 @@ recognizer.save('trainer.yml')
 # Initialize Webcam
 cap = cv2.VideoCapture(4)
 
+# Initialize Text to Speech Engine
+engine = pyttsx3.init()
+newVoiceRate = 150
+voices = engine.getProperty('voices')
+engine.setProperty('rate',newVoiceRate)
+engine.setProperty('voice', voices[1].id) # Change the index to select a different voice
+
+
 # Recognize Faces in Real Time
 while True:
     ret, img = cap.read()
@@ -44,9 +53,16 @@ while True:
             name = names[id_]
             cv2.putText(img, name, (x, y - 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
             cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            # Add Your Code to Trigger Authentication Here
+            engine.say("Welcome " + name + ", Access granted. Releasing the locks...")
+            engine.runAndWait()
+            cap.release()
+            cv2.destroyAllWindows()
+            exit()
         else:
+            cv2.putText(img, "Unauthorized", (x, y - 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
             cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            engine.say("Unauthorized")
+            engine.runAndWait()
     cv2.imshow('Facial Recognition', img)
     if cv2.waitKey(1) == ord('q'):
         break
