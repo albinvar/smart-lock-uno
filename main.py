@@ -11,7 +11,7 @@ face_thread = threading.Thread(target=recognize_face)
 # rfid_thread = threading.Thread(target=read_rfid)
 web_thread = threading.Thread(target=app.run, kwargs={'host': '0.0.0.0'})
 
-face_thread.start()
+# face_thread.start()
 # rfid_thread.start()
 web_thread.start()
 
