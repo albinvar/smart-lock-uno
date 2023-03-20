@@ -9,15 +9,15 @@ from facial import recognize_face
 from website import app
 
 # Start the threads for each authentication method
-face_thread = threading.Thread(target=recognize_face)
+# face_thread = threading.Thread(target=recognize_face)
 # rfid_thread = threading.Thread(target=read_rfid)
 web_thread = threading.Thread(target=app.run, kwargs={'host': '0.0.0.0'})
 
-face_thread.daemon = True
+# face_thread.daemon = True
 # rfid_thread.daemon = True
 web_thread.daemon = True
 
-face_thread.start()
+# face_thread.start()
 # rfid_thread.start()
 web_thread.start()
 

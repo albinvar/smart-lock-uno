@@ -85,6 +85,9 @@ def intruders_image(filename):
     response.headers.set('Content-Type', 'image/jpeg')
     return response
 
+@app.route('/ping')
+def check_status():
+    return jsonify(status='ok', message='System is connected')
 
 if __name__ == '__main__':
     app.run(debug=True)
