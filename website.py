@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
+import os
 import pyttsx3
 import bcrypt
 
@@ -52,3 +53,38 @@ def lock():
     response = jsonify({'message': message, 'status': status})
     response.status_code = 200 if status == "success" else 400
     return response
+
+@app.route('/intruders')
+def intruders():
+    intruders_folder = 'intruders'
+    if not os.path.exists(intruders_folder):
+        return jsonify(error='Intruders folder does not exist'), 404
+    
+    intruders_files = os.listdir(intruders_folder)
+    intruders_files = sorted(intruders_files, reverse=True)  # sort in descending order
+    intruders_urls = [f'/intruders/{filename}' for filename in intruders_files]
+    
+    return jsonify(intruders_urls)
+
+
+# define the route to retrieve intruders images
+@app.route('/intruders/<filename>')
+def intruders_image(filename):
+    intruders_folder = 'intruders'
+    if not os.path.exists(intruders_folder):
+        return jsonify(error='Intruders folder does not exist'), 404
+    
+    intruder_path = os.path.join(intruders_folder, filename)
+    if not os.path.exists(intruder_path):
+        return jsonify(error='Intruder not found'), 404
+    
+    with open(intruder_path, 'rb') as f:
+        image_data = f.read()
+    
+    response = make_response(image_data)
+    response.headers.set('Content-Type', 'image/jpeg')
+    return response
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
