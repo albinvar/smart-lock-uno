@@ -4,6 +4,7 @@ import numpy as np
 import threading
 import time
 import pyttsx3
+import requests
 
 
 # Initialize Face Recognition Model
@@ -33,6 +34,12 @@ def voice_output(name, is_authorized=True):
         engine.say(f"{name} is authorized. Disengaging locks.")
     else:
         # Speak the unauthorized message
+        notification_message = f"🚪 *Intruder Detected*\n\n"\
+                       f"*details*\n\n"\
+                       f"Unlock method: facial recognition\n"\
+                       f"Unlock action: unlock"
+
+        requests.post('https://lock-notification-api.lov3.pw', data={'message': notification_message})
         engine.say(f"Unauthorized access detected")
     engine.runAndWait()
 

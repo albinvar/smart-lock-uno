@@ -17,7 +17,7 @@ face_thread.daemon = True
 # rfid_thread.daemon = True
 web_thread.daemon = True
 
-# face_thread.start()
+face_thread.start()
 # rfid_thread.start()
 web_thread.start()
 
