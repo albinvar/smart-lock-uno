@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify, make_response
 import os
 import pyttsx3
 import bcrypt
+import telegram
+from telegram.error import TelegramError
 
 app = Flask(__name__)
 PASSWORD = 'PASSWORD'
@@ -13,6 +15,19 @@ DEFAULT_MESSAGE = {
     'invalid_password': "Invalid Door Lock Password",
     'blank_password': "Blank Door Lock Password"
 }
+
+# Initialize the Telegram bot
+TELEGRAM_BOT_TOKEN = '6256761063:AAGxJwbBquRaX9hVjSx_gaa_qyzcSubODVc'
+TELEGRAM_CHAT_ID = '-824763220'
+bot = telegram.Bot(token=TELEGRAM_BOT_TOKEN)
+
+def send_telegram_message(message):
+    """Sends a message to Telegram using the bot"""
+    try:
+        bot.send_message(chat_id=TELEGRAM_CHAT_ID, text=message)
+    except TelegramError as e:
+        print(f"Error sending message to Telegram: {e}")
+
 
 @app.route('/lock', methods=['POST'])
 def lock():
@@ -40,6 +55,7 @@ def lock():
                 # code to unlock solenoid
                 message = request.form.get('custom_message', DEFAULT_MESSAGE['unlock'])
                 status = "success"
+                send_telegram_message(message) # Send message to Telegram on success
     else:
         message = DEFAULT_MESSAGE['invalid_action']
         status = "error"
