@@ -5,6 +5,7 @@ import threading
 import time
 import pyttsx3
 import requests
+import serial
 
 
 # Initialize Face Recognition Model
@@ -12,6 +13,10 @@ face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 recognizer.read('trainer.yml')
 names = []
+
+# Set up the serial communication with the Arduino
+ser = serial.Serial('COM3', 9600)
+
 
 # Load Preprocessed Images and Assign Labels
 for name in os.listdir('faces'):
@@ -72,7 +77,7 @@ def recognize_face():
         for (x, y, w, h) in faces:
             roi_gray = gray[y:y + h, x:x + w]
             id_, conf = recognizer.predict(roi_gray)
-            if conf <= 100:
+            if conf <= 200:
                 name = names[id_]
                 cv2.putText(img, name, (x, y - 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
                 cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
@@ -84,6 +89,10 @@ def recognize_face():
                         # Unlock the solenoid lock here
                         voice_thread = threading.Thread(target=voice_output, args=(name,))
                         voice_thread.start()
+                        # Unlock the solenoid lock
+                        ser.write(b'u')
+                        time.sleep(10)
+                        
                         # Pause the camera for 10 seconds after an authorized face is detected
                         # time.sleep(10)
                         # authorized_detected = False
