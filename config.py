@@ -1,5 +1,17 @@
 # Configuration File
 
+
+# set video capture device
+video_capture_device = 4
+
+# Set threshold for camera to detect face.
+# Lower threshold means more sensitive, but more false positives.
+camera_threshold = 100
+
+# Set the time to wait before checking for a new face.
+# This is to prevent the camera from constantly checking for a new face.
+camera_authroized_delay = 10
+
 # set the serial port
 serial_port = 'COM3'
 
@@ -18,19 +30,9 @@ face_recognition_trainer = 'trainer.yml'
 # This is the folder that contains the faces to be recognized.
 face_recognition_faces = 'faces'
 
-# set video capture device
-video_capture_device = 4
 
 # set video capture width
 video_capture_width = 990
 
 # set video capture height
 video_capture_height = 540
-
-# Set threshold for camera to detect face.
-# Lower threshold means more sensitive, but more false positives.
-camera_threshold = 100
-
-# Set the time to wait before checking for a new face.
-# This is to prevent the camera from constantly checking for a new face.
-camera_authroized_delay = 10
