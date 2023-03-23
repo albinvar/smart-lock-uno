@@ -10,10 +10,10 @@ void setup() {
 void loop() {
   if (Serial.available() > 0) {
     char receivedChar = Serial.read();
-    if (receivedChar == 'u') {
+    if (receivedChar == 'l') {
       digitalWrite(relayPin, HIGH);  // Activate the solenoid lock
       unlocked = true;
-    } else if (receivedChar == 'l') {
+    } else if (receivedChar == 'u') {
       digitalWrite(relayPin, LOW);  // Deactivate the solenoid lock
       unlocked = false;
     }
