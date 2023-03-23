@@ -2,6 +2,11 @@ import threading
 import time
 import signal
 import sys
+import serial
+import shared
+
+# Create a shared serial object
+shared.ser = serial.Serial('COM3', 9600)
 
 # Import the modules for each authentication method
 from facial import recognize_face
@@ -9,7 +14,7 @@ from facial import recognize_face
 from website import app
 
 # Start the threads for each authentication method
-face_thread = threading.Thread(target=recognize_face)
+face_thread = threading.Thread(target=recognize_face, args=(shared.ser,))
 # rfid_thread = threading.Thread(target=read_rfid)
 web_thread = threading.Thread(target=app.run, kwargs={'host': '0.0.0.0'})
 

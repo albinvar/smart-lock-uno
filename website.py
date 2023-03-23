@@ -1,9 +1,10 @@
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response, current_app
 import os
 import pyttsx3
 import bcrypt
 import requests
 import time
+import shared
 
 app = Flask(__name__)
 PASSWORD = 'PASSWORD'
@@ -28,7 +29,7 @@ def lock():
     if action == 'lock':
         
         # code to lock solenoid
-        # ser.write(b'l')
+        shared.ser.write(b'l')
 
         message = request.form.get('custom_message', DEFAULT_MESSAGE['lock'])
         status = "success"
@@ -43,7 +44,7 @@ def lock():
                 status = "error"
             else:
                 # code to unlock solenoid
-                # ser.write(b'u')
+                shared.ser.write(b'u')
                
                 message = request.form.get('custom_message', DEFAULT_MESSAGE['unlock'])
                 status = "success"

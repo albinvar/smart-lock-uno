@@ -5,10 +5,9 @@ import threading
 import time
 import pyttsx3
 import requests
-import serial
 
-# Set up the serial communication with the Arduino
-ser = serial.Serial('COM3', 9600)
+# global serial object.
+ser = None
 
 # Initialize Face Recognition Model
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
@@ -54,9 +53,9 @@ def voice_output(name, is_authorized=True):
 
 
 # Define the function to recognize faces and save unauthorized faces
-def recognize_face():
+def recognize_face(ser):
     # Initialize Webcam
-    cap = cv2.VideoCapture(2)
+    cap = cv2.VideoCapture(4)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 990)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 540)
 
@@ -93,8 +92,6 @@ def recognize_face():
                         ser.write(b'u')
                         time.sleep(10)
                         ser.write(b'l')
-
-                        ser.close()
                         
                         # Pause the camera for 10 seconds after an authorized face is detected
                         # time.sleep(10)
