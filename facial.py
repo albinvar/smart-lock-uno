@@ -5,18 +5,19 @@ import threading
 import time
 import pyttsx3
 import requests
+import config
 
 # global serial object.
 ser = None
 
 # Initialize Face Recognition Model
-face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier(config.face_recognition_model)
 recognizer = cv2.face.LBPHFaceRecognizer_create()
-recognizer.read('trainer.yml')
+recognizer.read(config.face_recognition_trainer)
 names = []
 
 # Load Preprocessed Images and Assign Labels
-for name in os.listdir('faces'):
+for name in os.listdir(config.face_recognition_faces):
     names.append(name)
 
 # Define the function for voice output
@@ -55,9 +56,9 @@ def voice_output(name, is_authorized=True):
 # Define the function to recognize faces and save unauthorized faces
 def recognize_face(ser):
     # Initialize Webcam
-    cap = cv2.VideoCapture(4)
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 990)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 540)
+    cap = cv2.VideoCapture(config.video_capture_device)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, config.video_capture_width)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, config.video_capture_height)
 
     # Initialize Variables to Track Unauthorized Access
     unauthorized_count = 0
@@ -74,7 +75,7 @@ def recognize_face(ser):
         for (x, y, w, h) in faces:
             roi_gray = gray[y:y + h, x:x + w]
             id_, conf = recognizer.predict(roi_gray)
-            if conf <= 103:
+            if conf <= config.camera_threshold:
                 name = names[id_]
                 cv2.putText(img, name, (x, y - 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
                 cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
@@ -90,7 +91,7 @@ def recognize_face(ser):
 
                         # Unlock the solenoid lock
                         ser.write(b'u')
-                        time.sleep(10)
+                        time.sleep(config.camera_authroized_delay)
                         ser.write(b'l')
                         
                         # Pause the camera for 10 seconds after an authorized face is detected

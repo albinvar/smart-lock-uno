@@ -4,9 +4,10 @@ import signal
 import sys
 import serial
 import shared
+import config
 
 # Create a shared serial object
-shared.ser = serial.Serial('COM3', 9600)
+shared.ser = serial.Serial(config.serial_port, config.serial_baud)
 
 # Import the modules for each authentication method
 from facial import recognize_face
