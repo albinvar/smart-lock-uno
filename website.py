@@ -3,6 +3,7 @@ import os
 import pyttsx3
 import bcrypt
 import requests
+import time
 
 app = Flask(__name__)
 PASSWORD = 'PASSWORD'
@@ -15,7 +16,6 @@ DEFAULT_MESSAGE = {
     'blank_password': "Blank Door Lock Password"
 }
 
-
 @app.route('/lock', methods=['POST'])
 def lock():
     engine = pyttsx3.init()
@@ -26,7 +26,10 @@ def lock():
     engine.setProperty('voice', voices[1].id) # Change the index to select a different voice
     action = request.form.get('action')
     if action == 'lock':
+        
         # code to lock solenoid
+        # ser.write(b'l')
+
         message = request.form.get('custom_message', DEFAULT_MESSAGE['lock'])
         status = "success"
     elif action == 'unlock':
@@ -40,6 +43,8 @@ def lock():
                 status = "error"
             else:
                 # code to unlock solenoid
+                # ser.write(b'u')
+               
                 message = request.form.get('custom_message', DEFAULT_MESSAGE['unlock'])
                 status = "success"
                 notification_message = f"🚪 *Door unlocked*\n\n"\
@@ -98,6 +103,7 @@ def intruders_image(filename):
 @app.route('/ping')
 def check_status():
     return jsonify(status='ok', message='System is connected')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

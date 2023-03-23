@@ -7,16 +7,14 @@ import pyttsx3
 import requests
 import serial
 
+# Set up the serial communication with the Arduino
+ser = serial.Serial('COM3', 9600)
 
 # Initialize Face Recognition Model
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 recognizer.read('trainer.yml')
 names = []
-
-# Set up the serial communication with the Arduino
-ser = serial.Serial('COM3', 9600)
-
 
 # Load Preprocessed Images and Assign Labels
 for name in os.listdir('faces'):
@@ -58,7 +56,7 @@ def voice_output(name, is_authorized=True):
 # Define the function to recognize faces and save unauthorized faces
 def recognize_face():
     # Initialize Webcam
-    cap = cv2.VideoCapture(4)
+    cap = cv2.VideoCapture(2)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 990)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 540)
 
@@ -77,7 +75,7 @@ def recognize_face():
         for (x, y, w, h) in faces:
             roi_gray = gray[y:y + h, x:x + w]
             id_, conf = recognizer.predict(roi_gray)
-            if conf <= 200:
+            if conf <= 103:
                 name = names[id_]
                 cv2.putText(img, name, (x, y - 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
                 cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
@@ -87,11 +85,16 @@ def recognize_face():
                      if not authorized_detected:
                         authorized_detected = True
                         # Unlock the solenoid lock here
-                        voice_thread = threading.Thread(target=voice_output, args=(name,))
-                        voice_thread.start()
+                        # voice_thread = threading.Thread(target=voice_output, args=(name,))
+                        # voice_thread.start()
+                        voice_output(name)
+
                         # Unlock the solenoid lock
                         ser.write(b'u')
                         time.sleep(10)
+                        ser.write(b'l')
+
+                        ser.close()
                         
                         # Pause the camera for 10 seconds after an authorized face is detected
                         # time.sleep(10)
