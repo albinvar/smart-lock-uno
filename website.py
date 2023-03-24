@@ -52,7 +52,7 @@ def lock():
                        f"*Unlock details*\n"\
                        f"User: administrator\n"\
                        f"Unlock method: website/app\n"\
-                       f"Unlock duration: 10 seconds seconds\n"\
+                       f"Unlock duration: until the door is locked again. \n"\
                        f"Unlock action: unlock"
 
                 requests.post('https://lock-notification-api.lov3.pw', data={'message': notification_message})

@@ -6,7 +6,7 @@ video_capture_device = 4
 
 # Set threshold for camera to detect face.
 # Lower threshold means more sensitive, but more false positives.
-camera_threshold = 100
+camera_threshold = 70
 
 # Set the time to wait before checking for a new face.
 # This is to prevent the camera from constantly checking for a new face.
