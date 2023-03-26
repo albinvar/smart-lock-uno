@@ -28,9 +28,8 @@ def voice_output(name, is_authorized=True):
 
     # Set the voice
     voices = engine.getProperty('voices')
-    newVoiceRate = 140
-    engine.setProperty('rate', newVoiceRate)
-    engine.setProperty('voice', voices[1].id)  # Change the index to select a different voice
+    engine.setProperty('rate', config.voice_rate)
+    engine.setProperty('voice', voices[config.voice].id)  # Change the index to select a different voice
 
     if is_authorized:
         # Speak the authorized message
@@ -42,7 +41,7 @@ def voice_output(name, is_authorized=True):
                        f"Unlock method: facial recognition\n"\
                        f"Unlock action: unlock"
 
-        requests.post('https://lock-notification-api.lov3.pw', data={'message': notification_message})
+        requests.post(config.telegram_notification_api, data={'message': notification_message})
         engine.say(f"Unauthorized access detected")
     engine.runAndWait()
 
@@ -62,7 +61,7 @@ def recognize_face(ser):
 
     # Initialize Variables to Track Unauthorized Access
     unauthorized_count = 0
-    max_unauthorized_count = 100
+    max_unauthorized_count = config.max_unauthorized_count
     authorized_detected = False
 
     # Recognize Faces in Real Time
@@ -85,11 +84,15 @@ def recognize_face(ser):
                      if not authorized_detected:
                         authorized_detected = True
                         # Unlock the solenoid lock here
+
+                        # Thread the voice output
                         # voice_thread = threading.Thread(target=voice_output, args=(name,))
                         # voice_thread.start()
+
+                        # use main thread instread of voice_thread
                         voice_output(name)
 
-                        # Unlock the solenoid lock
+                        # Unlock the solenoid lock for x seconds
                         ser.write(b'u')
                         time.sleep(config.camera_authroized_delay)
                         ser.write(b'l')
@@ -106,7 +109,7 @@ def recognize_face(ser):
 
                 # Save unauthorized person image and reset unauthorized_count
                 if unauthorized_count >= max_unauthorized_count:
-                    folder_name = 'intruders'
+                    folder_name = config.face_recognition_intruders_folder
                     if not os.path.exists(folder_name):
                         os.makedirs(folder_name)
                     current_time = int(time.time())

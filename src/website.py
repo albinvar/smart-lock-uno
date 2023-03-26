@@ -4,10 +4,11 @@ import os
 import pyttsx3
 import bcrypt
 import requests
-import src.shared
+import src.shared as shared
+import config
 
 app = Flask(__name__)
-PASSWORD = '1234'
+PASSWORD = config.web_api_password
 PASSWORD_HASH = bcrypt.hashpw(PASSWORD.encode('utf-8'), bcrypt.gensalt()) # generate hash from the password
 DEFAULT_MESSAGE = {
     'lock': "The door has been locked.",
@@ -22,9 +23,8 @@ def lock():
     engine = pyttsx3.init()
     # Set the voice
     voices = engine.getProperty('voices')
-    newVoiceRate = 140
-    engine.setProperty('rate',newVoiceRate)
-    engine.setProperty('voice', voices[1].id) # Change the index to select a different voice
+    engine.setProperty('rate', config.voice_rate)
+    engine.setProperty('voice', voices[config.voice].id) # Change the index to select a different voice
     action = request.form.get('action')
     if action == 'lock':
         
@@ -55,7 +55,7 @@ def lock():
                        f"Unlock duration: until the door is locked again. \n"\
                        f"Unlock action: unlock"
 
-                requests.post('https://lock-notification-api.lov3.pw', data={'message': notification_message})
+                requests.post(config.telegram_notification_api, data={'message': notification_message})
     else:
         message = DEFAULT_MESSAGE['invalid_action']
         status = "error"

@@ -2,6 +2,7 @@ import serial
 import time
 import threading
 import pyttsx3
+import config
 
 def rfid_processor(ser, authorized_cards):
     
@@ -9,9 +10,8 @@ def rfid_processor(ser, authorized_cards):
     
     # Set the voice
     voices = engine.getProperty('voices')
-    newVoiceRate = 140
-    engine.setProperty('rate', newVoiceRate)
-    engine.setProperty('voice', voices[1].id)  # Change the index to select a different voice
+    engine.setProperty('rate', config.voice_rate)
+    engine.setProperty('voice', voices[config.voice].id)  # Change the index to select a different voice
 
     while True:
         # Read data from serial port

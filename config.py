@@ -21,6 +21,16 @@ serial_baud = 9600
 # Array of authorized card IDs
 authorized_cards = ['a3b624aa', '12f35bd6', 'b3c73d2f']
 
+# Voice synthesis engine
+# set the voice
+voice = 1
+
+# Set the voice rate
+voice_rate = 140
+
+# web api password
+web_api_password = '1234'
+
 # Set the path to the face recognition model.
 # This is the model that is used to detect faces.
 face_recognition_model = 'haarcascade_frontalface_default.xml'
@@ -28,6 +38,8 @@ face_recognition_model = 'haarcascade_frontalface_default.xml'
 # Set the path to the face recognition trainer.
 # This is the model that is used to recognize faces.
 face_recognition_trainer = 'trainer.yml'
+
+face_recognition_intruders_folder = 'intruders'
 
 # Set the path to the face recognition faces.
 # This is the folder that contains the faces to be recognized.
@@ -39,3 +51,11 @@ video_capture_width = 990
 
 # set video capture height
 video_capture_height = 540
+
+
+# max unauthorized count for facial recognition
+max_unauthorized_count = 100
+
+
+# telegram notification api
+telegram_notification_api = 'https://lock-notification-api.lov3.pw'

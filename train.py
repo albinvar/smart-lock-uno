@@ -1,9 +1,10 @@
 import cv2
 import os
 import numpy as np
+import config
 
 # Initialize Face Recognition Model
-face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier(config.face_recognition_model)
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 names = []
 
@@ -23,8 +24,8 @@ def load_images(path):
                 labels.append(label)
     return images, np.array(labels)
 
-images, labels = load_images('faces')
+images, labels = load_images(config.face_recognition_faces)
 
 # Train Face Recognition Model
 recognizer.train(images, labels)
-recognizer.save('trainer.yml')
+recognizer.save(config.face_recognition_trainer)
