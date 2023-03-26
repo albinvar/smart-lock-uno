@@ -7,7 +7,15 @@ import shared
 import config
 
 # Create a shared serial object
-shared.ser = serial.Serial(config.serial_port, config.serial_baud)
+# try to open the serial port
+try:
+    shared.ser = serial.Serial(config.serial_port, config.serial_baud)
+except serial.SerialException:
+    # if it fails, exit the program
+    print("Could not open serial port. Is the Arduino connected?")
+    print("Please check the serial port and baud rate in config.py")
+    print("Exiting...")
+    sys.exit(1)
 
 # Import the modules for each authentication method
 from facial import recognize_face
