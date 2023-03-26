@@ -2,15 +2,15 @@
 
 
 # set video capture device
-video_capture_device = 2
+video_capture_device = 0
 
 # Set threshold for camera to detect face.
 # Lower threshold means more sensitive, but more false positives.
-camera_threshold = 85
+camera_threshold = 80
 
 # Set the time to wait before checking for a new face.
 # This is to prevent the camera from constantly checking for a new face.
-camera_authroized_delay = 7
+camera_authroized_delay = 5
 
 # set the serial port
 serial_port = 'COM3'
@@ -19,7 +19,7 @@ serial_port = 'COM3'
 serial_baud = 9600
 
 # Array of authorized card IDs
-authorized_cards = ['a3b624aa', '12f35bd6', 'b3c73d2f']
+authorized_cards = []
 
 # Set the path to the face recognition model.
 # This is the model that is used to detect faces.
