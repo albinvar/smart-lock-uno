@@ -1,10 +1,10 @@
+
 from flask import Flask, request, jsonify, make_response, current_app
 import os
 import pyttsx3
 import bcrypt
 import requests
-import time
-import shared
+import src.shared
 
 app = Flask(__name__)
 PASSWORD = '1234'

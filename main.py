@@ -3,7 +3,7 @@ import time
 import signal
 import sys
 import serial
-import shared
+import src.shared as shared
 import config
 
 # Create a shared serial object
@@ -18,9 +18,9 @@ except serial.SerialException:
     sys.exit(1)
 
 # Import the modules for each authentication method
-from facial import recognize_face
-from rfid import rfid_processor
-from website import app
+from src.facial import recognize_face
+from src.rfid import rfid_processor
+from src.website import app
 
 # Start the threads for each authentication method
 face_thread = threading.Thread(target=recognize_face, args=(shared.ser,))
