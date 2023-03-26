@@ -7,11 +7,11 @@ import time
 import shared
 
 app = Flask(__name__)
-PASSWORD = 'PASSWORD'
+PASSWORD = '1234'
 PASSWORD_HASH = bcrypt.hashpw(PASSWORD.encode('utf-8'), bcrypt.gensalt()) # generate hash from the password
 DEFAULT_MESSAGE = {
-    'lock': "Locking the door now.",
-    'unlock': "Unlocking the door now.",
+    'lock': "The door has been locked.",
+    'unlock': "The door has been unlocked.",
     'invalid_action': "Invalid action.",
     'invalid_password': "Invalid Door Lock Password",
     'blank_password': "Blank Door Lock Password"

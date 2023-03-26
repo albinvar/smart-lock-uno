@@ -2,15 +2,15 @@
 
 
 # set video capture device
-video_capture_device = 4
+video_capture_device = 2
 
 # Set threshold for camera to detect face.
 # Lower threshold means more sensitive, but more false positives.
-camera_threshold = 70
+camera_threshold = 85
 
 # Set the time to wait before checking for a new face.
 # This is to prevent the camera from constantly checking for a new face.
-camera_authroized_delay = 10
+camera_authroized_delay = 7
 
 # set the serial port
 serial_port = 'COM3'
