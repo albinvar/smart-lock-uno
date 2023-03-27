@@ -116,6 +116,35 @@ The project can be splitted into 5 parts :
 	- Front End Web Application (Nuxt Js or Laravel & Livewire)
 	- Android App (sketchware)
 
+
+As mentioned earlier, the three authentication methods are stored seperately on `src` directory.
+
+```
+├── 📂 src
+│   ├── facial.py
+│   ├── website.py
+│   └── rfid.py
+├── 📂 models ⚙️
+│   └── trainer.yml
+├── haarcascade_frontalface_default.xml
+├── config.py
+├── main.py
+└── train.py
+```
+
+Inorder to achieve concurrency, all these authentication methods are executed on individual threads which makes authentication through all methods possible simultaneously.
+
+- The face recognition thread always scans for faces in each frame captured by the video camera. If the authentication succeeds, the solenoid lock is unlocked for `x` seconds.
+
+- The RFID reader continuously detects for RFID tags at a desired range. if an authorised card is detected, the solenoid lock is unlocked for `y` seconds.
+
+- The Website API module creates a flask development server which continuously listens for requests from a port. (default : 5000).
+inorder to share your local server to the internet, use a Tunneling service like Ngrok, Portmap.io, Serveo.net, Localhost.run etc... to integrate it to the app.
+
+The unlock action requires a parameter `password` which can be set on the `config.py`
+
+unlike the other 2 authentication methods, the unlock action helds the lock unlocked until a lock action is recieved. 
+
 ### Facial Recognition
 
 The facial recognition feature of the Smart Lock Uno is powered by the **OpenCV Python library**. It trains a machine learning model to recognize faces from images captured and stored in the configured directory. The recommended location to store images of authorized users is the `faces` directory located in the root folder. It is recommended to store images of each authorized user in separate folders with their name as the directory name.
