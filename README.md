@@ -181,6 +181,33 @@ In case an unauthorized person stands in front of the camera for too long, they 
 ```
 > PS : The directories mentioned above won't be present soon after installing the project. You may need to create it manually or it will be created upon execution.
 
+
+## RFID Authentication
+
+RFID authentication is a non-contact method for verifying the identity of individuals. This authentication method uses an RFID reader attached to an Arduino board, which continuously listens for RFID tags at its desired frequency. When a RFID tag is detected by the reader, the tag is sent over the serial connection to the computer.
+
+The `rfid.py` thread listens on the serial connection for RFID-specific messages, extracts the card ID from the message, and compares it with the authorized cards array defined in the `config.py` file. If the card ID matches with one of the authorized card IDs, the solenoid lock is unlocked for `y` seconds.
+
+It's important to note that all processing tasks are specifically done at the operating system level. This means that the Arduino board only acts as a pass-through for the RFID tags, and all authentication and decision-making processes are handled on the computer. This approach offers more flexibility and security compared to using an RFID reader with an embedded authentication system.
+
+
+## Website API (Flask)
+
+The Website API is an additional authentication method that runs on a separate thread and uses a Flask-based API. Its codes are located in the `src/website.py` file. The Website API listens actively on a specific port for requests and uses requests to communicate with the API. The Website API is accessible via a local server, but it is recommended to use port forwarding tools like `ngrok` to access it from the wide area network.
+
+The Website API requires a token to authorize each request, ensuring that only authenticated users can access the API. Unlike other authentication methods, the Website API does not have a delay to keep the solenoid lock unlocked. Instead, the lock is enabled only when a specific lock action request is received.
+
+One of the key advantages of the Website API is its ability to serve all the intruder images stored in the Intruders folder. This feature allows users to view images of intruders and take appropriate action, such as notifying law enforcement. Additionally, the Website API provides an easy-to-use interface for interacting with the security system and monitoring its status.
+
+#### API Documentation 
+
+| HTTP Method | Endpoint | Parameters | Description |
+|:------:|:------:|:------:|:------:|
+|    `GET`    |    `/ping`    |    *N/A*    |    Checks if the system is up and running.   |
+|    `POST`    |    `/lock`    |    `action` <br> `password` (if action is unlock)    |    Locks or unlocks the solenoid lock    |
+|    `GET`    |    `/intruders`    |    *N/A*    |    Returns a list of images/frames captured for unauthorized persons    |
+|    `GET`    |    `/intruders/{filename}`    |    `filename`    |    Returns a specific image    |
+
 ## Installation
 
 To use this project, you will need the following components:
