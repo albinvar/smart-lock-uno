@@ -2,7 +2,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/albinvar/smart-lock-uno">
-    <img src="https://i.ibb.co/h2HFdvT/3824032-removebg-preview.png" alt="Logo" width="260" height="260">
+    <img src="https://i.ibb.co/qFnmJ0z/Brand-initial-Simple-Logo.png alt="Logo" width="260" height="260">
   </a>
   
   <h3 align="center">Multi-Level Authentication Smart Lock</h3>
