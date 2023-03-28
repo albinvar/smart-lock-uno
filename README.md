@@ -228,10 +228,26 @@ To use this project, you will need the following components:
 - Connect the Arduino board to your laptop via USB port
 - Connect the 12V solenoid lock to a 5V 4 channel relay, and connect the relay to the - - Arduino board
 - Connect the 3.3V RFID reader to the Arduino board
+
+
+
+| RFID-RC522 PIN | ARDUINO UNO PIN |
+|:------:|:------:|
+|    `SDA`    |   **10**   |
+|    `SCK`    |   **13**   |
+|    `MOSI`    |   **11**   |
+|    `MISO`    |   **12**   |
+|    `IRQ`    |   *UNUSED*   |
+|    `GND`    |   **GND**   |
+|    `RST`    |   **9**   |
+|    `3.3 V`    |   **3.3 V**   |
+
 - Connect the 5V LCD display to the Arduino board
 - Clone the GitHub repository and open the project in your preferred IDE
 - Install the required libraries and dependencies, which are listed in the requirements.txt file
 - Run the main.py file to start the authentication programs
+
+
 
 ## Contributing
 
