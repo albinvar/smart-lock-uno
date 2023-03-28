@@ -219,6 +219,10 @@ To use this project, you will need the following components:
 - Laptop with webcam and internet connectivity
 - 5V channel relay
 
+### Circuit Diagram
+
+<img src="https://i.ibb.co/v3NLVfH/smart-lock-bb.png">
+
 ### Follow these steps to set up the project:
 
 - Connect the Arduino board to your laptop via USB port
