@@ -221,7 +221,7 @@ To use this project, you will need the following components:
 
 ### Circuit Diagram
 
-<img src="https://i.ibb.co/v3NLVfH/smart-lock-bb.png">
+<img src="https://i.ibb.co/qWWkwQm/Untitled-design-5.png">
 
 ### Follow these steps to set up the project:
 
