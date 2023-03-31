@@ -32,8 +32,6 @@
 
 
 <!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
@@ -55,8 +53,6 @@
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
-</details>
-
 
 
 <!-- ABOUT THE PROJECT -->
@@ -94,11 +90,11 @@ To use this project, you will need the following components:
 
 | Component | Robu.in | Amazon |
 |:------:|:------:|:------:|
-|    **Arduino UNO R3**    |   [robu.in](https://robu.in)  |  [amazon.in](https://amzn.eu/d/hJkeHbg)  |  
-|    **Solenoid Lock**    |   [robu.in](https://robu.in)  |  [amazon.in](https://amzn.eu/d/6a30gYJ)  |  
+|    **Arduino UNO R3**    |   [robu.in](https://robu.in/product/arduino-uno-r3/)  |  [amazon.in](https://amzn.eu/d/hJkeHbg)  |  
+|    **Solenoid Lock**    |   [robu.in](https://robu.in/product/dc-12v-cabinet-door-lock-electric-lock-assembly-solenoid/)  |  [amazon.in](https://amzn.eu/d/6a30gYJ)  |  
 |    **RFID-RC522 Module with rfid tags**    |   [robu.in](https://robu.in/product/mifare-rfid-readerwriter-13-56mhz-rc522-spi-s50-fudan-card-and-keychain/)  |  [amazon.in](https://amzn.eu/d/3c377VH)  |  
 |    **5V Relay**    |   [robu.in](https://robu.in/product/1-channel-isolated-5v-relay-module-opto-coupler-for-arduino-pic-avr-dsp-arm/)  |  [amazon.in](https://amzn.eu/d/a4LfZPG)  |  
-|    **Jumper Wires**    |   [robu.in](https://robu.in)  |  [amazon.in](https://amzn.eu/d/2Io3cSo)  |  
+|    **Jumper Wires**    |   [robu.in](https://robu.in/product/male-to-female-jumper-wires-40pcs-20cm/)  |  [amazon.in](https://amzn.eu/d/2Io3cSo)  |  
 
 
 ## Features
