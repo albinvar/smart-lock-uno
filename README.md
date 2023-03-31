@@ -29,6 +29,7 @@
 
 
 <!-- TABLE OF CONTENTS -->
+## Table of contents 🌈
   <ol>
     <li>
       <a href="#about-the-project-">About The Project</a>
