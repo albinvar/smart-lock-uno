@@ -90,6 +90,17 @@ To use this project, you will need the following components:
 - Python v3.0
 - Pip
 
+## Components that i bought.
+
+| Component | Robu.in | Amazon |
+|:------:|:------:|:------:|
+|    **Arduino UNO R3**    |   [robu.in](https://robu.in)  |  [amazon.in](https://amzn.eu/d/hJkeHbg)  |  
+|    **Solenoid Lock**    |   [robu.in](https://robu.in)  |  [amazon.in](https://amzn.eu/d/6a30gYJ)  |  
+|    **RFID-RC522 Module with rfid tags**    |   [robu.in](https://robu.in/product/mifare-rfid-readerwriter-13-56mhz-rc522-spi-s50-fudan-card-and-keychain/)  |  [amazon.in](https://amzn.eu/d/3c377VH)  |  
+|    **5V Relay**    |   [robu.in](https://robu.in/product/1-channel-isolated-5v-relay-module-opto-coupler-for-arduino-pic-avr-dsp-arm/)  |  [amazon.in](https://amzn.eu/d/a4LfZPG)  |  
+|    **Jumper Wires**    |   [robu.in](https://robu.in)  |  [amazon.in](https://amzn.eu/d/2Io3cSo)  |  
+
+
 ## Features
 
 Three different authentication methods: facial recognition, RFID authentication, and authentication through a web API
@@ -265,15 +276,6 @@ pip install -r requirements.txt
 ```
 - Run the main.py file to start the authentication programs
 
-## Components that i bought.
-
-| Component | Robu.in | Amazon |
-|:------:|:------:|:------:|
-|    **Arduino UNO R3**    |   [robu.in](https://robu.in)  |  [amazon.in](https://amazon.in)  |  
-|    **Solenoid Lock**    |   [robu.in](https://robu.in)  |  [amazon.in](https://amazon.in)  |  
-|    **RFID-RC522 Module with rfid tags**    |   [robu.in](https://robu.in/product/mifare-rfid-readerwriter-13-56mhz-rc522-spi-s50-fudan-card-and-keychain/)  |  [amazon.in](https://amazon.in)  |  
-|    **5V Relay**    |   [robu.in](https://robu.in/product/1-channel-isolated-5v-relay-module-opto-coupler-for-arduino-pic-avr-dsp-arm/)  |  [amazon.in](https://amazon.in)  |  
-|    **Jumper Wires**    |   [robu.in](https://robu.in)  |  [amazon.in](https://amazon.in)  |  
 
 ### Extras
 
