@@ -5,7 +5,7 @@
     <img src="https://i.ibb.co/qFnmJ0z/Brand-initial-Simple-Logo.png alt="Logo" width="260" height="260">
   </a>
   
-  <h3 align="center">Multi-Level Authentication Smart Lock</h3>
+  <h3 align="center">💫 Multi-Level Authentication Smart Lock 🔐 ✨</h3>
 
   <p align="center">
     A smart lock system with facial recognition, RFID authentication, and web API control using Arduino Uno and Python
@@ -226,10 +226,25 @@ To use this project, you will need the following components:
 ### Follow these steps to set up the project:
 
 - Connect the Arduino board to your laptop via USB port
-- Connect the 12V solenoid lock to a 5V 4 channel relay, and connect the relay to the - - Arduino board
-- Connect the 3.3V RFID reader to the Arduino board
 
+###### Connection on relay with ardiuno board
 
+- Connect the 12V solenoid lock to a 5V relay, and connect the relay to the Arduino board
+
+| 5V RELAY PIN | ARDUINO UNO PIN |
+|:------:|:------:|
+|    `VCC / +`    |   **5 V pin**   |
+|    `GND / -`    |   **GND**   |
+|    `IN / S`    |   **2**   |
+
+###### Connection on solenoid lock with relay
+
+- From the 12 V power supply, connect `+ ve` end with the `NO` port of relay. connect `- ve` end with the `- ve` end of solenoid lock.
+- From the 5V Relay, connect `COM` port with the `+ ve` end of solenoid lock.
+
+###### Connection of RFID reader module
+
+- Connect the 3.3V RFID reader to the Arduino board, the connection pins are mentioned below.
 
 | RFID-RC522 PIN | ARDUINO UNO PIN |
 |:------:|:------:|
@@ -242,12 +257,42 @@ To use this project, you will need the following components:
 |    `RST`    |   **9**   |
 |    `3.3 V`    |   **3.3 V**   |
 
-- Connect the 5V LCD display to the Arduino board
 - Clone the GitHub repository and open the project in your preferred IDE
-- Install the required libraries and dependencies, which are listed in the requirements.txt file
+- Install the required libraries and dependencies, which are listed in the `requirements.txt` file
+
+```bash
+pip install -r requirements.txt
+```
 - Run the main.py file to start the authentication programs
 
+## Components that i bought.
 
+| Component | Robu.in | Amazon |
+|:------:|:------:|:------:|
+|    **Arduino UNO R3**    |   [robu.in](https://robu.in)  |  [amazon.in](https://amazon.in)  |  
+|    **Solenoid Lock**    |   [robu.in](https://robu.in)  |  [amazon.in](https://amazon.in)  |  
+|    **RFID-RC522 Module with rfid tags**    |   [robu.in](https://robu.in/product/mifare-rfid-readerwriter-13-56mhz-rc522-spi-s50-fudan-card-and-keychain/)  |  [amazon.in](https://amazon.in)  |  
+|    **5V Relay**    |   [robu.in](https://robu.in/product/1-channel-isolated-5v-relay-module-opto-coupler-for-arduino-pic-avr-dsp-arm/)  |  [amazon.in](https://amazon.in)  |  
+|    **Jumper Wires**    |   [robu.in](https://robu.in)  |  [amazon.in](https://amazon.in)  |  
+
+### Extras
+
+##### PYTTSX3 Voice Synthesis Library.
+
+This library is used to provide voice feedback for every authentication action performed through the three authentication methods. By utilizing the laptop speakers or external speakers, the system can provide real-time voice feedback to the user, giving them an audible confirmation that their authentication was successful or unsuccessful.
+
+The voice feedback helps to improve the user experience and can also be beneficial in scenarios where the user is unable to view the screen, such as during hands-free operation. The voice feedback feature can be enabled or disabled in the `config.py`  file based on the user's preference. Also, the narrator voice, voice speed & other parameters can be changed through the `config.py`
+
+###### What is the purpose of shared.py in the project?
+
+The project implements three authentication methods that run concurrently on separate threads. Each of these methods requires a serial connection to communicate with the Arduino board. However, the board can only establish a single serial connection at a time. To address this limitation, a single serial connection is established and shared among all three threads. This allows all the methods to communicate with the board using the same connection.
+
+While sharing a serial connection isn't generally recommended, in this case, it's the best solution for enabling multiple threads to communicate with the Arduino board without causing conflicts or issues in the program. The shared.py file serves as a container for the serial connection object, which can be accessed by all three threads to execute their authentication tasks.
+
+###### How does telegram notification work?
+
+Telegram notification feature is implemented in the system using a simple API which sends notifications to a specific chat ID. This feature enables the system to notify the user about events such as unauthorized access attempts and successful authentication.
+The API implementation may be updated in the future for more robust and secure integration. As of now, a simple `post` request is used to send the notification message.
 
 ## Contributing
 
