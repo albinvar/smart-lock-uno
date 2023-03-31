@@ -18,8 +18,6 @@
     <img src="https://img.shields.io/github/repo-size/albinvar/smart-lock-uno">
     <a href="LICENSE"><img src="https://img.shields.io/apm/l/Github"></a>
     <br />
-    <a href="https://github.com/albinvar/smart-lock-uno"><strong>Explore the docs »</strong></a>
-    <br />
     <br />
     <a href="https://github.com/albinvar/smart-lock-uno">View Demo</a>
     ·
@@ -36,18 +34,23 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#requirements">Requirements</a></
       </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#features">Features</a></li>
+	<ul>
+		<li><a href="#facial-recognition">Facial Recognition</a></li>
+		<li><a href="#rfid-authentication">RFID Authentication</a></li>
+		<li><a href="#web-api">Web API</a></li>
+      	</ul>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#explanation">Explanation</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -299,9 +302,15 @@ This project is open source and contributions are welcome. To contribute, please
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for more information.
+				   
+				   
+## Contact
+
+If you have any questions, feedback, or suggestions for this project, please feel free to contact us:
+
+- Name: Albin Varghese
+- Email: albinvar@pm.me		   
 
 ## Acknowledgments
 
-This project was inspired by various smart lock projects available on the internet
-Thanks to OpenCV Python and Flask for providing the tools necessary for facial recognition and web API authentication, respectively
-Thanks to the Arduino community for providing helpful resources and support for this project.
+This project was inspired by various smart lock projects available on the internet. Thanks to OpenCV Python and Flask for providing the tools necessary for facial recognition and web API authentication, respectively. Thanks to the Arduino community for providing helpful resources and support for this project. Additionally, thank you to ChatGPT, an AI language model trained by OpenAI, for generating helpful responses and contributing to the development of this project.
