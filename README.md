@@ -11,12 +11,10 @@
     A smart lock system with facial recognition, RFID authentication, and web API control using Arduino Uno and Python
     <br />
     <br />
-    <img src="https://img.shields.io/packagist/v/albinvar/smart-lock-uno?label=version">
-    <img src="https://poser.pugx.org/albinvar/smart-lock-uno/downloads">
-    <a href="https://github.com/albinvar/smart-lock-uno/actions/workflows/tests.yml">
-          <img src="https://github.com/albinvar/smart-lock-uno/actions/workflows/tests.yml/badge.svg"></a>
+    <img src="https://img.shields.io/github/issues/albinvar/smart-lock-uno">
+    <img src="https://img.shields.io/github/downloads/albinvar/smart-lock-uno/total">
     <img src="https://img.shields.io/github/repo-size/albinvar/smart-lock-uno">
-    <a href="LICENSE"><img src="https://img.shields.io/apm/l/Github"></a>
+    <a href="LICENCE"><img src="https://img.shields.io/github/license/albinvar/smart-lock-uno"></a>
     <br />
     <br />
     <a href="https://github.com/albinvar/smart-lock-uno">View Demo</a>
@@ -34,7 +32,7 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#requirements">Requirements</a></
+        <li><a href="#requirements">Requirements</a></li>
       </ul>
     </li>
     <li>
@@ -201,9 +199,9 @@ The `rfid.py` thread listens on the serial connection for RFID-specific messages
 It's important to note that all processing tasks are specifically done at the operating system level. This means that the Arduino board only acts as a pass-through for the RFID tags, and all authentication and decision-making processes are handled on the computer. This approach offers more flexibility and security compared to using an RFID reader with an embedded authentication system.
 
 
-## Website API (Flask)
+## Web API (Flask)
 
-The Website API is an additional authentication method that runs on a separate thread and uses a Flask-based API. Its codes are located in the `src/website.py` file. The Website API listens actively on a specific port for requests and uses requests to communicate with the API. The Website API is accessible via a local server, but it is recommended to use port forwarding tools like `ngrok` to access it from the wide area network.
+The Web API is an additional authentication method that runs on a separate thread and uses a Flask-based API. Its codes are located in the `src/website.py` file. The Web API listens actively on a specific port for requests and uses requests to communicate with the API. The Website API is accessible via a local server, but it is recommended to use port forwarding tools like `ngrok` to access it from the wide area network.
 
 The Website API requires a token to authorize each request, ensuring that only authenticated users can access the API. Unlike other authentication methods, the Website API does not have a delay to keep the solenoid lock unlocked. Instead, the lock is enabled only when a specific lock action request is received.
 
