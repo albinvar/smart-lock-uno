@@ -26,7 +26,7 @@
   </p>
 </div>
 
-
+> Warning ⚠️ : The project is still in its beta phase. Some part of the documentation may not be implemented properly.
 
 <!-- TABLE OF CONTENTS -->
 ## Table of contents 🌈
