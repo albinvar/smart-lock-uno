@@ -6,7 +6,7 @@
   </a>
   
   <h3 align="center">💫 Multi-Level Authentication Smart Lock 🔐 ✨</h3>
-    <h6 align="center"><u> version 1.0.0 - beta 👨🏻‍💻</u></h6>
+    <h6 align="center">version 1.0.0 - beta 👨🏻‍💻</h6>
 
   <p align="center">
     A smart lock system with facial recognition, RFID authentication, and web API control using Arduino Uno and Python
@@ -31,29 +31,29 @@
 <!-- TABLE OF CONTENTS -->
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#about-the-project-">About The Project</a>
       <ul>
-        <li><a href="#requirements">Requirements</a></li>
+        <li><a href="#requirements-">Requirements</a></li>
       </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#features">Features</a></li>
+        <li><a href="#features-">Features</a></li>
 	<ul>
-		<li><a href="#facial-recognition">Facial Recognition</a></li>
-		<li><a href="#rfid-authentication">RFID Authentication</a></li>
-		<li><a href="#web-api-flask">Web API</a></li>
+		<li><a href="#facial-recognition-">Facial Recognition</a></li>
+		<li><a href="#rfid-authentication-">RFID Authentication</a></li>
+		<li><a href="#web-api-flask-">Web API</a></li>
       	</ul>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#installation-%EF%B8%8F">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#explanation">Explanation</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#usage-">Usage</a></li>
+    <li><a href="#explanation-">Explanation</a></li>
+    <li><a href="#contributing-">Contributing</a></li>
+    <li><a href="#license-">License</a></li>
+    <li><a href="#contact-">Contact</a></li>
+    <li><a href="#acknowledgments-">Acknowledgments</a></li>
   </ol>
 
 
