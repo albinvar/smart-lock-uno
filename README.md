@@ -6,6 +6,7 @@
   </a>
   
   <h3 align="center">💫 Multi-Level Authentication Smart Lock 🔐 ✨</h3>
+    <h6 align="center"><u> version 1.0.0 - beta 👨🏻‍💻</u></h6>
 
   <p align="center">
     A smart lock system with facial recognition, RFID authentication, and web API control using Arduino Uno and Python
@@ -57,9 +58,9 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+## About The Project 🚀
 
-Smart Lock Uno is a versatile and reliable prototype for a secure access control system. Built with Arduino Uno and Python. With its modular design and open-source code, Smart Lock Uno provides a starting point for young innovators  to build their own customized access control solutions. Smart Lock Uno offers a flexible and affordable way to manage access control.
+Smart Lock Uno is a simple, versatile and reliable prototype for a secure access control system which is built with Arduino Uno and Python. With its modular design and open-source code, Smart Lock Uno provides a starting point for young innovators  to build their own customized access control solutions. Smart Lock Uno offers a flexible and affordable way to manage access control. 
 
 This project is an open source implementation of a smart lock that allows users to unlock a door using three different authentication methods: 
 
@@ -69,11 +70,11 @@ This project is an open source implementation of a smart lock that allows users 
 
 The project uses an **Arduino Uno R3 microcontroller** and various electronic components to control a 12V solenoid lock.
 
-## Requirements
+## Requirements 🌠
 
 To use this project, you will need the following components:
 
-#### Hardware
+#### Hardware🔩
 
 - Arduino Uno R3 microcontroller
 - 12 V solenoid lock
@@ -83,12 +84,12 @@ To use this project, you will need the following components:
 - 5 V single channel relay
 - 12 V power supply 
 
-#### Software
+#### Software 💻
 
 - python v3.0
 - pip
 
-## Components that i bought.
+## Components that i bought. 🦾
 
 | Component | Robu.in | Amazon |
 |:------:|:------:|:------:|
@@ -99,7 +100,7 @@ To use this project, you will need the following components:
 |    **Jumper Wires**    |   [robu.in](https://robu.in/product/male-to-female-jumper-wires-40pcs-20cm/)  |  [amazon.in](https://amzn.eu/d/2Io3cSo)  |  
 
 
-## Features
+## Features ✨
 
 Three different authentication methods: facial recognition, RFID authentication, and authentication through a web API
 
@@ -112,18 +113,11 @@ Three different authentication methods: facial recognition, RFID authentication,
 - Uses a 5V relay to switch the higher 12V power supply to solenoid lock using arduino.
 
 
-## Installation
+## Installation ⚙️
 
 To use this project, you will need the following components:
 
-- Arduino Uno R3 microcontroller
-- 12V solenoid lock
-- 3.3V RFID reader
-- 5V LCD display
-- Laptop with webcam and internet connectivity
-- 5V channel relay
-
-### Circuit Diagram
+### Circuit Diagram 🔌
 
 <img src="circuits/connections.png">
 
@@ -168,14 +162,18 @@ To use this project, you will need the following components:
 pip install -r requirements.txt
 ```
 - Copy/rename the `config.example.py` file to `config.py` and configure it with your desired settings.
-- Run the `main.py` file to start the authentication programs
+
+
+## Usage 🦄
+
+- Run the `main.py` file to start the program 🚀
 
 ```
 python main.py
 ```
 
 
-## Explanation
+## Explanation 👩‍🚀
 
 The project aims in demonstrating a simple multi-level authentication smart lock which can be implemented at low cost while maintaining simplicity, efficiency & readability. The primary aim of this project is to lock/unlock a **solenoid lock**  by the 3 authentication methods mentioned above.
 
@@ -218,7 +216,7 @@ The unlock action requires a parameter `password` which can be set on the `confi
 
 unlike the other 2 authentication methods, the unlock action helds the lock unlocked until a lock action is recieved. 
 
-### Facial Recognition
+### Facial Recognition 👧
 
 The facial recognition feature of the Smart Lock Uno is powered by the **OpenCV Python library**. It trains a machine learning model to recognize faces from images captured and stored in the configured directory. The recommended location to store images of authorized users is the `faces` directory located in the root folder. It is recommended to store images of each authorized user in separate folders with their name as the directory name.
 
@@ -235,7 +233,7 @@ In case an unauthorized person stands in front of the camera for too long, they 
 │   │   ├─── img1.jpg
 │   │   ├─── img2.jpg
 │   │   └─── ...
-│   ├── 📂 Dave
+│   ├── 📂 Dave 
 │   │   ├─── img1.jpg
 │   │   ├─── img2.jpg
 │   │   └─── ...
@@ -255,7 +253,7 @@ In case an unauthorized person stands in front of the camera for too long, they 
 > PS : The directories mentioned above won't be present soon after installing the project. You may need to create it manually or it will be created upon execution.
 
 
-## RFID Authentication
+## RFID Authentication 💳
 
 RFID authentication is a non-contact method for verifying the identity of individuals. This authentication method uses an RFID reader attached to an Arduino board, which continuously listens for RFID tags at its desired frequency. When a RFID tag is detected by the reader, the tag is sent over the serial connection to the computer.
 
@@ -264,9 +262,9 @@ The `rfid.py` thread listens on the serial connection for RFID-specific messages
 It's important to note that all processing tasks are specifically done at the operating system level. This means that the Arduino board only acts as a pass-through for the RFID tags, and all authentication and decision-making processes are handled on the computer. This approach offers more flexibility and security compared to using an RFID reader with an embedded authentication system.
 
 
-## Web API (Flask)
+## Web API (Flask) 🛸
 
-The Web API is an additional authentication method that runs on a separate thread and uses a Flask-based API. Its codes are located in the `src/website.py` file. The Web API listens actively on a specific port for requests and uses requests to communicate with the API. The Website API is accessible via a local server, but it is recommended to use port forwarding tools like `ngrok` to access it from the wide area network.
+The Web API is an additional authentication method that runs on a separate thread and uses a Flask-based API. Its codes are located in the `src/website.py` file. The Web API listens actively on a specific port for requests and uses requests to communicate with the API. The Website API is accessible via a local server, but it is recommended to use port forwarding tools like `ngrok` or `cloudflared tunnel` to access it from the wide area network.
 
 The Website API requires a token to authorize each request, ensuring that only authenticated users can access the API. Unlike other authentication methods, the Website API does not have a delay to keep the solenoid lock unlocked. Instead, the lock is enabled only when a specific lock action request is received.
 
@@ -277,12 +275,12 @@ One of the key advantages of the Website API is its ability to serve all the int
 | HTTP Method | Endpoint | Parameters | Description |
 |:------:|:------:|:------:|:------:|
 |    `GET`    |    `/ping`    |    *N/A*    |    Checks if the system is up and running.   |
-|    `POST`    |    `/lock`    |    `action` <br> `password` (if action is unlock)    |    Locks or unlocks the solenoid lock    |
+|    `POST`    |    `/lock`    |    - `action` <br> - `password` (if action is unlock)    |    Locks or unlocks the solenoid lock    |
 |    `GET`    |    `/intruders`    |    *N/A*    |    Returns a list of images/frames captured for unauthorized persons    |
 |    `GET`    |    `/intruders/{filename}`    |    `filename`    |    Returns a specific image    |
 
 
-### Extras
+### Extras 👨‍🏫
 
 ##### PYTTSX3 Voice Synthesis Library.
 
@@ -294,29 +292,28 @@ The voice feedback helps to improve the user experience and can also be benefici
 
 The project implements three authentication methods that run concurrently on separate threads. Each of these methods requires a serial connection to communicate with the Arduino board. However, the board can only establish a single serial connection at a time. To address this limitation, a single serial connection is established and shared among all three threads. This allows all the methods to communicate with the board using the same connection.
 
-While sharing a serial connection isn't generally recommended, in this case, it's the best solution for enabling multiple threads to communicate with the Arduino board without causing conflicts or issues in the program. The shared.py file serves as a container for the serial connection object, which can be accessed by all three threads to execute their authentication tasks.
+While sharing a serial connection isn't generally recommended, in this case, it's the best solution for enabling multiple threads to communicate with the Arduino board without causing conflicts or issues in the program. The `shared.py` file serves as a container for the serial connection object, which can be accessed by all three threads to execute their authentication tasks.
 
 ###### How does telegram notification work?
 
 Telegram notification feature is implemented in the system using a simple API which sends notifications to a specific chat ID. This feature enables the system to notify the user about events such as unauthorized access attempts and successful authentication.
 The API implementation may be updated in the future for more robust and secure integration. As of now, a simple `post` request is used to send the notification message.
 
-## Contributing
+## Contributing 🌠
 
 This project is open source and contributions are welcome. To contribute, please fork the repository, make your changes, and submit a pull request.
 
-## License
+## License 📃
 
-This project is licensed under the MIT License. See the LICENSE file for more information.
-				   
-				   
-## Contact
+This project is licensed under the MIT <a href="LICENCE">License</a>. See the LICENSE file for more information.
+
+## Contact 📞
 
 If you have any questions, feedback, or suggestions for this project, please feel free to contact us:
 
-- Name: Albin Varghese
+- Name: **Albin Varghese**
 - Email: albinvar@pm.me		   
 
-## Acknowledgments
+## Acknowledgments 😊
 
 This project was inspired by various smart lock projects available on the internet. Thanks to OpenCV Python and Flask for providing the tools necessary for facial recognition and web API authentication, respectively. Thanks to the Arduino community for providing helpful resources and support for this project. Additionally, thank you to ChatGPT, an AI language model trained by OpenAI, for generating helpful responses and contributing to the development of this project.
