@@ -17,7 +17,7 @@
     <a href="LICENCE"><img src="https://img.shields.io/github/license/albinvar/smart-lock-uno"></a>
     <br />
     <br />
-    <a href="https://github.com/albinvar/smart-lock-uno">View Demo</a>
+    <a href="#">View Demo (Not Available Yet)</a>
     ·
     <a href="https://github.com/albinvar/smart-lock-uno/issues">Report Bug</a>
     ·
@@ -42,7 +42,7 @@
 	<ul>
 		<li><a href="#facial-recognition">Facial Recognition</a></li>
 		<li><a href="#rfid-authentication">RFID Authentication</a></li>
-		<li><a href="#web-api">Web API</a></li>
+		<li><a href="#web-api-flask">Web API</a></li>
       	</ul>
         <li><a href="#installation">Installation</a></li>
       </ul>
@@ -65,7 +65,7 @@ This project is an open source implementation of a smart lock that allows users 
 
 - Facial Recognition  👦🏻
 - RFID Authentication  💳
-- Authentication through a Web API 🌐
+- Authentication through web API 🌐
 
 The project uses an **Arduino Uno R3 microcontroller** and various electronic components to control a 12V solenoid lock.
 
@@ -81,11 +81,12 @@ To use this project, you will need the following components:
 - Jumper Wires
 - Laptop with webcam and internet connectivity
 - 5 V single channel relay
+- 12 V power supply 
 
 #### Software
 
-- Python v3.0
-- Pip
+- python v3.0
+- pip
 
 ## Components that i bought.
 
@@ -108,7 +109,71 @@ Three different authentication methods: facial recognition, RFID authentication,
 - Uses Flask framework to connect the Arduino to the internet for web API authentication.
 - Three authentication programs are split into separate threads to achieve concurrency.
 - Sends signals to the Arduino board to unlock the solenoid lock for 10 seconds upon successful identification/authentication.
-- Uses a 5V relay to power the 12V solenoid lock.
+- Uses a 5V relay to switch the higher 12V power supply to solenoid lock using arduino.
+
+
+## Installation
+
+To use this project, you will need the following components:
+
+- Arduino Uno R3 microcontroller
+- 12V solenoid lock
+- 3.3V RFID reader
+- 5V LCD display
+- Laptop with webcam and internet connectivity
+- 5V channel relay
+
+### Circuit Diagram
+
+<img src="circuits/connections.png">
+
+### Follow these steps to set up the project:
+
+- Connect the Arduino board to your laptop via USB port
+
+#### Connection on relay with ardiuno board
+
+- Connect the 12V solenoid lock to a 5V relay, and connect the relay to the Arduino board
+
+| 5V RELAY PIN | ARDUINO UNO PIN |
+|:------:|:------:|
+|    `VCC / +`    |   **5 V pin**   |
+|    `GND / -`    |   **GND**   |
+|    `IN / S`    |   **2**   |
+
+#### Connection on solenoid lock with relay
+
+- From the 12 V power supply, connect `+ ve` end with the `NO` port of relay. connect `- ve` end with the `- ve` end of solenoid lock.
+- From the 5V Relay, connect `COM` port with the `+ ve` end of solenoid lock.
+
+#### Connection of RFID reader module
+
+- Connect the 3.3V RFID reader to the Arduino board, the connection pins are mentioned below.
+
+| RFID-RC522 PIN | ARDUINO UNO PIN |
+|:------:|:------:|
+|    `SDA`    |   **10**   |
+|    `SCK`    |   **13**   |
+|    `MOSI`    |   **11**   |
+|    `MISO`    |   **12**   |
+|    `IRQ`    |   *UNUSED*   |
+|    `GND`    |   **GND**   |
+|    `RST`    |   **9**   |
+|    `3.3 V`    |   **3.3 V**   |
+
+- Clone the GitHub repository and open the project in your preferred IDE
+- Install the required libraries and dependencies, which are listed in the `requirements.txt` file
+
+```
+pip install -r requirements.txt
+```
+- Copy/rename the `config.example.py` file to `config.py` and configure it with your desired settings.
+- Run the `main.py` file to start the authentication programs
+
+```
+python main.py
+```
+
 
 ## Explanation
 
@@ -215,63 +280,6 @@ One of the key advantages of the Website API is its ability to serve all the int
 |    `POST`    |    `/lock`    |    `action` <br> `password` (if action is unlock)    |    Locks or unlocks the solenoid lock    |
 |    `GET`    |    `/intruders`    |    *N/A*    |    Returns a list of images/frames captured for unauthorized persons    |
 |    `GET`    |    `/intruders/{filename}`    |    `filename`    |    Returns a specific image    |
-
-## Installation
-
-To use this project, you will need the following components:
-
-- Arduino Uno R3 microcontroller
-- 12V solenoid lock
-- 3.3V RFID reader
-- 5V LCD display
-- Laptop with webcam and internet connectivity
-- 5V channel relay
-
-### Circuit Diagram
-
-<img src="circuits/connections.png">
-
-### Follow these steps to set up the project:
-
-- Connect the Arduino board to your laptop via USB port
-
-###### Connection on relay with ardiuno board
-
-- Connect the 12V solenoid lock to a 5V relay, and connect the relay to the Arduino board
-
-| 5V RELAY PIN | ARDUINO UNO PIN |
-|:------:|:------:|
-|    `VCC / +`    |   **5 V pin**   |
-|    `GND / -`    |   **GND**   |
-|    `IN / S`    |   **2**   |
-
-###### Connection on solenoid lock with relay
-
-- From the 12 V power supply, connect `+ ve` end with the `NO` port of relay. connect `- ve` end with the `- ve` end of solenoid lock.
-- From the 5V Relay, connect `COM` port with the `+ ve` end of solenoid lock.
-
-###### Connection of RFID reader module
-
-- Connect the 3.3V RFID reader to the Arduino board, the connection pins are mentioned below.
-
-| RFID-RC522 PIN | ARDUINO UNO PIN |
-|:------:|:------:|
-|    `SDA`    |   **10**   |
-|    `SCK`    |   **13**   |
-|    `MOSI`    |   **11**   |
-|    `MISO`    |   **12**   |
-|    `IRQ`    |   *UNUSED*   |
-|    `GND`    |   **GND**   |
-|    `RST`    |   **9**   |
-|    `3.3 V`    |   **3.3 V**   |
-
-- Clone the GitHub repository and open the project in your preferred IDE
-- Install the required libraries and dependencies, which are listed in the `requirements.txt` file
-
-```bash
-pip install -r requirements.txt
-```
-- Run the main.py file to start the authentication programs
 
 
 ### Extras
