@@ -164,6 +164,16 @@ pip install -r requirements.txt
 ```
 - Copy/rename the `config.example.py` file to `config.py` and configure it with your desired settings.
 
+#### Program your UNO board 
+
+As said earlier, all the **computing tasks are done within the laptops processor & memory**.  So a board like UNO might be an **overkill** for this type of a project. Arduino Mini Pro or Arduino Nano could be sufficient as both of these supports RCC522-RFID module & other functions required by the project. So if you need to lower the expenses, go for a board like Nano or Mini Pro. The circuit diagrams & installation process will be updated soon for these boards.
+
+The Arduino sketch for this project is available in the `/arduino` directory. You will find two different programs:
+
+- `program.ino` - a simple program that controls the solenoid lock using `l` and `u` signals.
+- `program_with_rfid` - the same as `program.ino`, but should be used if you plan to include RFID authentication.
+
+To program your UNO board, connect it to your computer and open the Arduino IDE. Then, select the appropriate program and upload it to your board. Once the program is uploaded, your board is ready to use.
 
 ## Usage 🦄
 
