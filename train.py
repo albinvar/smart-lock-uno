@@ -26,6 +26,10 @@ def load_images(path):
 
 images, labels = load_images(config.face_recognition_faces)
 
+# Create 'models' directory if it does not exist
+if not os.path.exists('models'):
+    os.makedirs('models')
+
 # Train Face Recognition Model
 recognizer.train(images, labels)
 recognizer.save(config.face_recognition_trainer)
