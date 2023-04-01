@@ -3,6 +3,13 @@
 # set all available authentification methods
 auth_methods = ['card', 'face', 'api']
 
+# enable telegram notifications
+telegram_notifications = True
+
+# telegram bot token
+telegram_bot_token = '123456789:ABCDEF1234567890ABCDEF1234567890ABC'
+telegram_chat_id = '123456789'
+
 # set video capture device
 video_capture_device = 1
 

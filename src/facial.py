@@ -4,7 +4,7 @@ import numpy as np
 import threading
 import time
 import pyttsx3
-import requests
+import src.shared as shared
 import config
 
 # global serial object.
@@ -40,8 +40,7 @@ def voice_output(name, is_authorized=True):
                        f"*details*\n\n"\
                        f"Unlock method: facial recognition\n"\
                        f"Unlock action: unlock"
-
-        requests.post(config.telegram_notification_api, data={'message': notification_message})
+        shared.send_message(notification_message)
         engine.say(f"Unauthorized access detected")
     engine.runAndWait()
 
@@ -94,6 +93,15 @@ def recognize_face(ser):
 
                         # Unlock the solenoid lock for x seconds
                         ser.write(b'u')
+
+                        notification_message = f"🚪 *Door unlocked*\n\n"\
+                        f"*Unlock details*\n"\
+                        f"User: administrator\n"\
+                        f"Unlock method: facial authentication\n"\
+                        f"Unlock duration: 8 sec \n"\
+                        f"Unlock action: unlock"
+                        shared.send_message(notification_message)
+
                         time.sleep(8)
                         ser.write(b'l')
                         

@@ -1,8 +1,7 @@
-import serial
 import time
-import threading
 import pyttsx3
 import config
+import src.shared as shared
 
 def rfid_processor(ser, authorized_cards):
     
@@ -27,11 +26,27 @@ def rfid_processor(ser, authorized_cards):
                 engine.runAndWait()
                 # Send signal to Arduino to unlock the lock
                 ser.write(b'u')
+
+                notification_message = f"🚪 *Door unlocked*\n\n"\
+                       f"*Unlock details*\n"\
+                       f"User: administrator\n"\
+                       f"Unlock method: RFID Tag\n"\
+                       f"Unlock duration: 5 sec \n"\
+                       f"Unlock action: unlock"
+                shared.send_message(notification_message)
+
                 # Wait for 5 seconds
                 time.sleep(5)
+
                 # Send signal to Arduino to lock the lock
                 ser.write(b'l')
             else:
                 # Output a voice message
                 engine.say("Access denied")
                 engine.runAndWait()
+                notification_message = f"🚪 *Card Declined*\n\n"\
+                       f"*details*\n"\
+                       f"Unlock method: RFID Tag\n"\
+                       f"Card ID : 12345 \n"\
+                       f"Unlock action: unlock"
+                shared.send_message(notification_message)

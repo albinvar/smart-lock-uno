@@ -3,7 +3,6 @@ from flask import Flask, request, jsonify, make_response, current_app
 import os
 import pyttsx3
 import bcrypt
-import requests
 import src.shared as shared
 import config
 
@@ -45,17 +44,17 @@ def lock():
             else:
                 # code to unlock solenoid
                 shared.ser.write(b'u')
-               
+
                 message = request.form.get('custom_message', DEFAULT_MESSAGE['unlock'])
                 status = "success"
+                
                 notification_message = f"🚪 *Door unlocked*\n\n"\
                        f"*Unlock details*\n"\
                        f"User: administrator\n"\
                        f"Unlock method: website/app\n"\
                        f"Unlock duration: until the door is locked again. \n"\
                        f"Unlock action: unlock"
-
-                requests.post(config.telegram_notification_api, data={'message': notification_message})
+                shared.send_message(notification_message)
     else:
         message = DEFAULT_MESSAGE['invalid_action']
         status = "error"
