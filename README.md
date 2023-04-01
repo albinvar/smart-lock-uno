@@ -306,7 +306,7 @@ This project is open source and contributions are welcome. To contribute, please
 
 ## License 📃
 
-This project is licensed under the MIT <a href="LICENCE">License</a>. See the LICENSE file for more information.
+This project is licensed under the <a href="LICENSE">MIT License</a>. See the LICENSE file for more information.
 
 ## Contact 📞
 
