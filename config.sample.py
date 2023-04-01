@@ -30,6 +30,9 @@ serial_baud = 9600
 # Array of authorized card IDs
 authorized_cards = []
 
+# rfid authorized delay
+rfid_authorized_delay = 5
+
 # Voice synthesis engine
 # set the voice
 voice = 1
