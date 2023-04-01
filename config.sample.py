@@ -1,5 +1,7 @@
 # Configuration File
 
+# set all available authentification methods
+auth_methods = ['card', 'face', 'api']
 
 # set video capture device
 video_capture_device = 1
