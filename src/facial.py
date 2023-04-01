@@ -36,11 +36,6 @@ def voice_output(name, is_authorized=True):
         engine.say(f"{name} is authorized. Disengaging locks.")
     else:
         # Speak the unauthorized message
-        notification_message = f"🚪 *Intruder Detected*\n\n"\
-                       f"*details*\n\n"\
-                       f"Unlock method: facial recognition\n"\
-                       f"Unlock action: unlock"
-        shared.send_message(notification_message)
         engine.say(f"Unauthorized access detected")
     engine.runAndWait()
 
@@ -96,20 +91,21 @@ def recognize_face(ser):
 
                         notification_message = f"🚪 *Door unlocked*\n\n"\
                         f"*Unlock details*\n"\
-                        f"User: administrator\n"\
-                        f"Unlock method: facial authentication\n"\
-                        f"Unlock duration: 8 sec \n"\
-                        f"Unlock action: unlock"
-                        shared.send_message(notification_message)
+                        f"User : {name}\n"\
+                        f"Unlock method : facial authentication\n"\
+                        f"Unlock duration : {config.camera_authroized_delay} sec \n"\
+                        f"Unlock action : unlock"
+                        if config.telegram_notifications:
+                            shared.send_message(notification_message)
 
-                        time.sleep(8)
+                        time.sleep(config.camera_authroized_delay)
                         ser.write(b'l')
                         
                         # Pause the camera for 10 seconds after an authorized face is detected
                         # time.sleep(10)
                         # authorized_detected = False
                         # As far as authroized_detected remains true. This block wont be executed. Means, just one time execution.
-                        print("Authorized")
+                        print(f"{name} has been authorized")
 
             else:
                 cv2.putText(img, "Unauthorized", (x, y - 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
@@ -124,9 +120,17 @@ def recognize_face(ser):
                     current_time = int(time.time())
                     file_name = os.path.join(folder_name, f"unauthorized_{current_time}.jpg")
                     cv2.imwrite(file_name, img)
+                    print(f"intruder detected, image saved to {file_name}")
                     unauthorized_count = 0
                     voice_thread = threading.Thread(target=voice_output, args=(name, False))
                     voice_thread.start()
+                    
+                    notification_message = f"🚪 *Intruder Detected*\n\n"\
+                       f"*details*\n\n"\
+                       f"Unlock method: facial recognition\n"\
+                       f"Unlock action: unlock"
+                    if config.telegram_notifications:
+                            shared.send_message(notification_message)
 
         cv2.imshow('Facial Recognition', img)
         if cv2.waitKey(1) == ord('q'):

@@ -47,14 +47,15 @@ def lock():
 
                 message = request.form.get('custom_message', DEFAULT_MESSAGE['unlock'])
                 status = "success"
-                
+
                 notification_message = f"🚪 *Door unlocked*\n\n"\
                        f"*Unlock details*\n"\
                        f"User: administrator\n"\
                        f"Unlock method: website/app\n"\
                        f"Unlock duration: until the door is locked again. \n"\
                        f"Unlock action: unlock"
-                shared.send_message(notification_message)
+                if config.telegram_notifications:
+                    shared.send_message(notification_message)
     else:
         message = DEFAULT_MESSAGE['invalid_action']
         status = "error"
