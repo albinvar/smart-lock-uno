@@ -313,7 +313,9 @@ This project is licensed under the <a href="LICENSE">MIT License</a>. See the LI
 If you have any questions, feedback, or suggestions for this project, please feel free to contact us:
 
 - Name: **Albin Varghese**
-- Email: albinvar@pm.me		   
+- Email: albinvar@pm.me
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/albinvar)
 
 ## Acknowledgments 😊
 
