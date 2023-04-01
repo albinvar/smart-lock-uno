@@ -94,13 +94,14 @@ def recognize_face(ser):
 
                         # Unlock the solenoid lock for x seconds
                         ser.write(b'u')
-                        time.sleep(config.camera_authroized_delay)
+                        time.sleep(8)
                         ser.write(b'l')
                         
                         # Pause the camera for 10 seconds after an authorized face is detected
                         # time.sleep(10)
                         # authorized_detected = False
                         # As far as authroized_detected remains true. This block wont be executed. Means, just one time execution.
+                        print("Authorized")
 
             else:
                 cv2.putText(img, "Unauthorized", (x, y - 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)

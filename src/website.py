@@ -78,15 +78,15 @@ def intruders():
     
     intruders_files = os.listdir(intruders_folder)
     intruders_files = sorted(intruders_files, reverse=True)  # sort in descending order
-    intruders_urls = [f'/intruders/{filename}' for filename in intruders_files]
+    intruders_urls = [f'{config.face_recognition_intruders_folder}/{filename}' for filename in intruders_files]
     
     return jsonify(intruders_urls)
 
 
 # define the route to retrieve intruders images
-@app.route('/intruders/<filename>')
+@app.route(f'/{config.face_recognition_intruders_folder}/<filename>')
 def intruders_image(filename):
-    intruders_folder = 'intruders'
+    intruders_folder = config.face_recognition_intruders_folder
     if not os.path.exists(intruders_folder):
         return jsonify(error='Intruders folder does not exist'), 404
     
