@@ -1,16 +1,8 @@
 import time
-import pyttsx3
 import config
 import src.shared as shared
 
 def rfid_processor(ser, authorized_cards):
-    
-    engine = pyttsx3.init()
-    
-    # Set the voice
-    voices = engine.getProperty('voices')
-    engine.setProperty('rate', config.voice_rate)
-    engine.setProperty('voice', voices[config.voice].id)  # Change the index to select a different voice
 
     while True:
         # Read data from serial port
@@ -22,8 +14,7 @@ def rfid_processor(ser, authorized_cards):
             # Check if the card is authorized
             if card_id in authorized_cards:
                 # Output a voice message
-                engine.say("Access granted, Welcome back")
-                engine.runAndWait()
+                shared.voice_feedback_queue.put("Access granted, Welcome back")
                 # Send signal to Arduino to unlock the lock
                 ser.write(b'u')
 
@@ -42,8 +33,7 @@ def rfid_processor(ser, authorized_cards):
                 ser.write(b'l')
             else:
                 # Output a voice message
-                engine.say("Card declined, please try again with a valid card")
-                engine.runAndWait()
+                shared.voice_feedback_queue.put("Card declined, please try again with a valid card")
 
                 notification_message = f"🚪 *Card Declined*\n\n"\
                        f"*details*\n"\

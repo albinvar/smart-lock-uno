@@ -3,7 +3,6 @@ import os
 import numpy as np
 import threading
 import time
-import pyttsx3
 import src.shared as shared
 import config
 
@@ -23,27 +22,12 @@ for name in os.listdir(config.face_recognition_faces):
 # Define the function for voice output
 def voice_output(name, is_authorized=True):
 
-    # Initialize Voice Output
-    engine = pyttsx3.init()
-
-    # Set the voice
-    voices = engine.getProperty('voices')
-    engine.setProperty('rate', config.voice_rate)
-    engine.setProperty('voice', voices[config.voice].id)  # Change the index to select a different voice
-
     if is_authorized:
         # Speak the authorized message
-        engine.say(f"{name} is authorized. Disengaging locks.")
+        shared.voice_feedback_queue.put(f"{name} is authorized. Disengaging locks.")
     else:
         # Speak the unauthorized message
-        engine.say(f"Unauthorized access detected")
-    engine.runAndWait()
-
-    if engine._inLoop:
-        engine.endLoop()
-
-    # Clean up the engine
-    engine.stop()
+        shared.voice_feedback_queue.put(f"Unauthorized access detected")
 
 
 # Define the function to recognize faces and save unauthorized faces
@@ -122,8 +106,8 @@ def recognize_face(ser):
                     cv2.imwrite(file_name, img)
                     print(f"intruder detected, image saved to {file_name}")
                     unauthorized_count = 0
-                    voice_thread = threading.Thread(target=voice_output, args=(name, False))
-                    voice_thread.start()
+
+                    voice_output(name, False)
                     
                     notification_message = f"🚪 *Intruder Detected*\n\n"\
                        f"*details*\n\n"\

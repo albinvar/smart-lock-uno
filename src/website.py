@@ -1,7 +1,6 @@
 
 from flask import Flask, request, jsonify, make_response, current_app
 import os
-import pyttsx3
 import bcrypt
 import src.shared as shared
 import config
@@ -19,11 +18,6 @@ DEFAULT_MESSAGE = {
 
 @app.route('/lock', methods=['POST'])
 def lock():
-    engine = pyttsx3.init()
-    # Set the voice
-    voices = engine.getProperty('voices')
-    engine.setProperty('rate', config.voice_rate)
-    engine.setProperty('voice', voices[config.voice].id) # Change the index to select a different voice
     action = request.form.get('action')
     if action == 'lock':
         
@@ -61,10 +55,7 @@ def lock():
         status = "error"
         
     # code for voice output message
-    engine.say(message)
-    engine.startLoop(False)
-    engine.iterate()
-    engine.endLoop()
+    shared.voice_feedback_queue.put(message)
     
     response = jsonify({'message': message, 'status': status})
     response.status_code = 200 if status == "success" else 400
