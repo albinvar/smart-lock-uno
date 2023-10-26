@@ -6,7 +6,7 @@
   </a>
   
   <h3 align="center">💫 Multi-Level Authentication Smart Lock 🔐 ✨</h3>
-    <h6 align="center">version 1.0.0 - beta 👨🏻‍💻</h6>
+    <h6 align="center">version 1.0.0 👨🏻‍💻</h6>
 
   <p align="center">
     A smart lock system with facial recognition, RFID authentication, and web API control using Arduino Uno and Python
@@ -19,14 +19,14 @@
     <br />
     <br />
     <a href="#">View Demo (Not Available Yet)</a>
+.
+	  <a href="https://lock.lov3.pw">View Web Demo </a>
     ·
     <a href="https://github.com/albinvar/smart-lock-uno/issues">Report Bug</a>
     ·
     <a href="https://github.com/albinvar/smart-lock-uno/issues">Request Feature</a>
   </p>
 </div>
-
-> Warning ⚠️ : The project is still in its beta phase. Some part of the documentation may not be implemented properly.
 
 <!-- TABLE OF CONTENTS -->
 ## Table of contents 🌈
