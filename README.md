@@ -195,8 +195,13 @@ The project can be splitted into 5 parts :
 	- Backend Part (Python)
 	- Ardiuno Board Program (Ardiuno Sketch)
 	- Web API (Flask Api - Python)
-	- Front End Web Application (Nuxt Js or Laravel & Livewire)
+	- Front End Web Application (Laravel & Livewire)
 	- Android App (sketchware)
+
+The [web api implementation using laravel project demo](https://lock.lov3.pw) is hosted for FREE 💝 on [Wexron Hosting](https://wexronhosting.com). You can find its codes over the repo [smart-lock-uno-laravel](https://github.com/albinvar/smart-lock-uno-laravel)
+
+
+<a href="https://wexronhosting.com"><img src="https://wexronhosting.com/_nuxt/wex.76a224d8.svg" /></a>
 
 
 As mentioned earlier, the three authentication methods are stored seperately on `src` directory.
@@ -274,6 +279,8 @@ It's important to note that all processing tasks are specifically done at the op
 
 
 ## Web API (Flask) 🛸
+
+> The api implementation using laravel is available as a [seperate project](https://github.com/albinvar/smart-lock-uno-laravel). All the documentation is available for further information. The module provides a clean implementation of the API & is totally optional.
 
 The Web API is an additional authentication method that runs on a separate thread and uses a Flask-based API. Its codes are located in the `src/website.py` file. The Web API listens actively on a specific port for requests and uses requests to communicate with the API. The Website API is accessible via a local server, but it is recommended to use port forwarding tools like `ngrok` or `cloudflared tunnel` to access it from the wide area network.
 
