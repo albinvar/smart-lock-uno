@@ -105,6 +105,10 @@ def recognize_face(ser):
                     file_name = os.path.join(folder_name, f"unauthorized_{current_time}.jpg")
                     cv2.imwrite(file_name, img)
                     print(f"intruder detected, image saved to {file_name}")
+
+                    # send photo to telegram
+                    shared.send_photo(file_name)
+
                     unauthorized_count = 0
 
                     voice_output(name, False)

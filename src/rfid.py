@@ -26,6 +26,9 @@ def rfid_processor(ser, authorized_cards):
                        f"Unlock action: unlock"
                 shared.send_message(notification_message)
 
+                 # code for logging authentication events to the server.
+                shared.send_auth_log_to_server("success", "rfid", f"The door has been unlocked by the administrator via the rfid access for {config.rfid_authorized_delay} seconds.")
+
                 # Keep the door unlocked for x seconds (config.rfid_authorized_delay)
                 time.sleep(config.rfid_authorized_delay)
 

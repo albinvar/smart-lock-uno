@@ -42,6 +42,9 @@ def lock():
                 message = request.form.get('custom_message', DEFAULT_MESSAGE['unlock'])
                 status = "success"
 
+                # code for logging authentication events to the server.
+                shared.send_auth_log_to_server("success", "webapi", "The door has been unlocked by the administrator via the website at 2021-01-01 12:00:00.")
+
                 notification_message = f"🚪 *Door unlocked*\n\n"\
                        f"*Unlock details*\n"\
                        f"User: administrator\n"\

@@ -4,6 +4,11 @@ import queue
 import threading
 import pyttsx3
 import time
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
+# Suppress SSL warnings
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
 
 ser = None
 
@@ -43,3 +48,33 @@ def send_message(message):
         'parse_mode': 'Markdown'
     }
     requests.post(url, data=data)
+
+def send_photo(photo_path):
+    # Send a photo to the Telegram bot
+    url = f'https://api.telegram.org/bot{config.telegram_bot_token}/sendPhoto'
+    data = {
+        'chat_id': config.telegram_chat_id,
+    }
+    files = {
+        'photo': open(photo_path, 'rb')
+    }
+    requests.post(url, data=data, files=files)
+
+def send_auth_log_to_server(status, type, message):
+    api_url = "http://smart-lock.test/api/auth-log"
+
+    data = {
+        'status': status,  # 'success' or 'failure
+        'type': type,
+        'message': message
+    }
+
+    try:
+        response = requests.post(api_url, json=data)
+
+        if response.status_code == 201:  # 201 indicates successful creation
+            print("Auth log sent successfully")
+        else:
+            print(f"Failed to send auth log: {response.status_code} - {response.text}")
+    except requests.exceptions.RequestException as e:
+        print(f"Request error: {e}")
