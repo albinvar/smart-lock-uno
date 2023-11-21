@@ -82,6 +82,9 @@ def recognize_face(ser):
                         if config.telegram_notifications:
                             shared.send_message(notification_message)
 
+                        # code for logging authentication events to the server.
+                        shared.send_auth_log_to_server("success", "face", f"The door has been unlocked by {name} via the facial recognition access for {config.camera_authroized_delay} seconds.")
+
                         time.sleep(config.camera_authroized_delay)
                         ser.write(b'l')
                         
@@ -119,6 +122,9 @@ def recognize_face(ser):
                        f"Unlock action: unlock"
                     if config.telegram_notifications:
                             shared.send_message(notification_message)
+
+                    # code for logging authentication events to the server.
+                    shared.send_auth_log_to_server("failure", "face", f"An intruder has been detected via the facial recognition access.")
 
         cv2.imshow('Facial Recognition', img)
         if cv2.waitKey(1) == ord('q'):

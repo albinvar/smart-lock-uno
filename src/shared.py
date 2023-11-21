@@ -61,7 +61,7 @@ def send_photo(photo_path):
     requests.post(url, data=data, files=files)
 
 def send_auth_log_to_server(status, type, message):
-    api_url = "http://smart-lock.test/api/auth-log"
+    api_url = config.log_server_endpoint
 
     data = {
         'status': status,  # 'success' or 'failure

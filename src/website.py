@@ -35,6 +35,9 @@ def lock():
             if not bcrypt.checkpw(PASSWORD.encode('utf-8'), password_hash.encode('utf-8')):
                 message = DEFAULT_MESSAGE['invalid_password']
                 status = "error"
+
+                # code for logging authentication events to the server.
+                shared.send_auth_log_to_server("failure", "webapi", "An invalid password has been entered via the website/app")
             else:
                 # code to unlock solenoid
                 shared.ser.write(b'u')
@@ -43,7 +46,7 @@ def lock():
                 status = "success"
 
                 # code for logging authentication events to the server.
-                shared.send_auth_log_to_server("success", "webapi", "The door has been unlocked by the administrator via the website at 2021-01-01 12:00:00.")
+                shared.send_auth_log_to_server("success", "webapi", "The door has been unlocked by the administrator via the website")
 
                 notification_message = f"🚪 *Door unlocked*\n\n"\
                        f"*Unlock details*\n"\
@@ -56,6 +59,9 @@ def lock():
     else:
         message = DEFAULT_MESSAGE['invalid_action']
         status = "error"
+
+        # code for logging authentication events to the server.
+        shared.send_auth_log_to_server("failure", "webapi", "An invalid action has been requested via the website/app")
         
     # code for voice output message
     shared.voice_feedback_queue.put(message)
@@ -97,7 +103,17 @@ def intruders_image(filename):
 
 @app.route('/ping')
 def check_status():
-    return jsonify(status='ok', message='System is connected')
+    enabled_methods = ['face', 'card', 'api']  # List of authentication methods that are enabled
+
+    result = {}
+
+    for method in enabled_methods:
+        if method in config.auth_methods:
+            result[method] = True
+        else:
+            result[method] = False
+
+    return jsonify(status='ok', message='System is connected', enabled_states=result)
 
 
 if __name__ == '__main__':
