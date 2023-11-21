@@ -24,7 +24,7 @@ def voice_output(name, is_authorized=True):
 
     if is_authorized:
         # Speak the authorized message
-        shared.voice_feedback_queue.put(f"{name} is authorized. Disengaging locks.")
+        shared.voice_feedback_queue.put(f"{name} is authorized. Locks disengaged.")
     else:
         # Speak the unauthorized message
         shared.voice_feedback_queue.put(f"Unauthorized access detected")
