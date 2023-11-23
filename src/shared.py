@@ -61,6 +61,8 @@ def send_photo(photo_path):
     requests.post(url, data=data, files=files)
 
 def send_auth_log_to_server(status, type, message):
+    if config.auth_logging_enabled == False:
+        return
     api_url = config.log_server_endpoint
 
     data = {

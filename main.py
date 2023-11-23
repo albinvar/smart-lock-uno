@@ -37,6 +37,7 @@ if 'api' in config.auth_methods:
     web_thread.daemon = True
     web_thread.start()
 
+
 def signal_handler(signal, frame):
     print("\nStopping all threads...")
     for t in threading.enumerate():
