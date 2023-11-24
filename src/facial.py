@@ -23,8 +23,9 @@ for name in os.listdir(config.face_recognition_faces):
 def voice_output(name, is_authorized=True):
 
     if is_authorized:
+        message = shared.greeting()
         # Speak the authorized message
-        shared.voice_feedback_queue.put(f"{name} is authorized. Locks disengaged.")
+        shared.voice_feedback_queue.put(f"Locks disengaged. {message} {name}, welcome back.")
     else:
         # Speak the unauthorized message
         shared.voice_feedback_queue.put(f"Unauthorized access detected")
@@ -83,7 +84,8 @@ def recognize_face(ser):
                             shared.send_message(notification_message)
 
                         # code for logging authentication events to the server.
-                        shared.send_auth_log_to_server("success", "face", f"The door has been unlocked by {name} via the facial recognition access for {config.camera_authroized_delay} seconds.")
+                        if config.auth_logging_enabled:
+                            shared.send_auth_log_to_server("success", "face", f"The door has been unlocked by {name} via the facial recognition access for {config.camera_authroized_delay} seconds.")
 
                         time.sleep(config.camera_authroized_delay)
                         ser.write(b'l')
@@ -109,10 +111,11 @@ def recognize_face(ser):
                     cv2.imwrite(file_name, img)
                     print(f"intruder detected, image saved to {file_name}")
 
-                    # send photo to telegram
-                    shared.send_photo(file_name)
-
                     unauthorized_count = 0
+
+                    # send photo to telegram if telegram notifications is enabled
+                    if config.telegram_notifications:
+                        shared.send_photo(file_name)
 
                     voice_output(name, False)
                     

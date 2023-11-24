@@ -80,3 +80,15 @@ def send_auth_log_to_server(status, type, message):
             print(f"Failed to send auth log: {response.status_code} - {response.text}")
     except requests.exceptions.RequestException as e:
         print(f"Request error: {e}")
+
+def greeting():
+    current_time = time.localtime().tm_hour
+    
+    if 5 <= current_time < 12:
+        return "Good morning"
+    elif 12 <= current_time < 17:
+        return "Good afternoon"
+    elif 17 <= current_time < 20:
+        return "Good evening"
+    else:
+        return "I hope you had a great day "
