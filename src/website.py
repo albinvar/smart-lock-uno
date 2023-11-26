@@ -36,8 +36,12 @@ def lock():
                 message = DEFAULT_MESSAGE['invalid_password']
                 status = "error"
 
-                # code for logging authentication events to the server.
-                shared.send_auth_log_to_server("failure", "webapi", "An invalid password has been entered via the website/app")
+                # add it to the auth logger queue
+                shared.logger_queue.put({
+                    'status': 'failure',
+                    'type': 'webapi',
+                    'message': 'Invalid password entered via the website/app'
+                })
             else:
                 # code to unlock solenoid
                 shared.ser.write(b'u')
@@ -45,8 +49,12 @@ def lock():
                 message = request.form.get('custom_message', DEFAULT_MESSAGE['unlock'])
                 status = "success"
 
-                # code for logging authentication events to the server.
-                shared.send_auth_log_to_server("success", "webapi", "The door has been unlocked by the administrator via the website")
+                # add it to the auth logger queue
+                shared.logger_queue.put({
+                    'status': 'success',
+                    'type': 'webapi',
+                    'message': 'Door unlocked via the website/app'
+                })
 
                 notification_message = f"🚪 *Door unlocked*\n\n"\
                        f"*Unlock details*\n"\
@@ -60,8 +68,12 @@ def lock():
         message = DEFAULT_MESSAGE['invalid_action']
         status = "error"
 
-        # code for logging authentication events to the server.
-        shared.send_auth_log_to_server("failure", "webapi", "An invalid action has been requested via the website/app")
+        # add it to the auth logger queue
+        shared.logger_queue.put({
+            'status': 'failure',
+            'type': 'webapi',
+            'message': 'Invalid action via the website/app'
+        })
         
     # code for voice output message
     shared.voice_feedback_queue.put(message)

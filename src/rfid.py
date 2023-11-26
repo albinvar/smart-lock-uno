@@ -26,9 +26,13 @@ def rfid_processor(ser, authorized_cards):
                        f"Unlock action: unlock"
                 shared.send_message(notification_message)
 
-                # code for logging authentication events to the server.
-                shared.send_auth_log_to_server("success", "rfid", f"The door has been unlocked by the administrator via the rfid access for {config.rfid_authorized_delay} seconds.")
-
+                # add it to the auth logger queue
+                shared.logger_queue.put({
+                    'status': 'success',
+                    'type': 'rfid',
+                    'message': f"An authorized card has been used to access the door via the rfid access."
+                })
+                
                 # Keep the door unlocked for x seconds (config.rfid_authorized_delay)
                 time.sleep(config.rfid_authorized_delay)
 
@@ -38,8 +42,12 @@ def rfid_processor(ser, authorized_cards):
                 # Output a voice message
                 shared.voice_feedback_queue.put("Card declined, please try again with a valid card")
 
-                # code for logging authentication events to the server.
-                shared.send_auth_log_to_server("failure", "rfid", f"An invalid card has been used to access the door via the rfid access.")
+                # add it to the auth logger queue
+                shared.logger_queue.put({
+                    'status': 'failure',
+                    'type': 'rfid',
+                    'message': f"An unauthorized card has been used to access the door via the rfid access."
+                })
 
                 notification_message = f"🚪 *Card Declined*\n\n"\
                        f"*details*\n"\

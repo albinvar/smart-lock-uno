@@ -24,6 +24,9 @@ engine.setProperty('voice', voices[config.voice].id)  # Change the index to sele
 # Initialize thread-safe queue for voice feedback messages
 voice_feedback_queue = queue.Queue()
 
+# Initialize threa-safe queue for sending auth logs to server
+logger_queue = queue.Queue()
+
 # Define function to handle voice feedback
 def handle_voice_feedback():
     while True:
@@ -35,9 +38,22 @@ def handle_voice_feedback():
             engine.endLoop()
         time.sleep(0.1)
 
+
+# Define function to handle sending auth logs to server
+def handle_logger():
+    while True:
+        if not logger_queue.empty():
+            log = logger_queue.get()
+            send_auth_log_to_server(log['status'], log['type'], log['message'])
+        time.sleep(0.1)
+
 # Start thread for handling voice feedback
 voice_thread = threading.Thread(target=handle_voice_feedback, daemon=True)
 voice_thread.start()
+
+# Start thread for handling sending auth logs to server
+logger_thread = threading.Thread(target=handle_logger, daemon=True)
+logger_thread.start()
 
 def send_message(message):
     # Send a message to the Telegram bot
