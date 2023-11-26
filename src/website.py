@@ -42,6 +42,22 @@ def lock():
                     'type': 'webapi',
                     'message': 'Invalid password entered via the website/app'
                 })
+
+                # send a telegram notification
+                notification_message = f"🚪 *Door lock failed*\n\n"\
+                       f"*Unlock details*\n"\
+                       f"User: administrator\n"\
+                       f"Unlock method: website/app\n"\
+                       f"Unlock duration: until the door is locked again. \n"\
+                       f"Unlock action: unlock"
+                
+                # add the notification message to the telegram notification queue
+                if config.telegram_notifications:
+                    shared.telegram_notification_queue.put({
+                        'message': notification_message,
+                        'photo': None
+                    })
+                    
             else:
                 # code to unlock solenoid
                 shared.ser.write(b'u')
@@ -62,8 +78,13 @@ def lock():
                        f"Unlock method: website/app\n"\
                        f"Unlock duration: until the door is locked again. \n"\
                        f"Unlock action: unlock"
+                
+                # add the notification message to the telegram notification queue
                 if config.telegram_notifications:
-                    shared.send_message(notification_message)
+                    shared.telegram_notification_queue.put({
+                        'message': notification_message,
+                        'photo': None
+                    })
     else:
         message = DEFAULT_MESSAGE['invalid_action']
         status = "error"

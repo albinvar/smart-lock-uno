@@ -24,7 +24,13 @@ def rfid_processor(ser, authorized_cards):
                        f"Unlock method: RFID Tag\n"\
                        f"Unlock duration: {config.rfid_authorized_delay} sec \n"\
                        f"Unlock action: unlock"
-                shared.send_message(notification_message)
+                
+                # add the notification message to the telegram notification queue
+                if config.telegram_notifications:
+                    shared.telegram_notification_queue.put({
+                        'message': notification_message,
+                        'photo': None
+                    })
 
                 # add it to the auth logger queue
                 shared.logger_queue.put({
@@ -54,4 +60,10 @@ def rfid_processor(ser, authorized_cards):
                        f"Unlock method : RFID Tag\n"\
                        f"Card ID : {rfid_string} \n"\
                        f"Unlock action : unlock"
-                shared.send_message(notification_message)
+                
+                # add the notification message to the telegram notification queue
+                if config.telegram_notifications:
+                    shared.telegram_notification_queue.put({
+                        'message': notification_message,
+                        'photo': None
+                    })

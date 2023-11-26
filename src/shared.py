@@ -27,6 +27,9 @@ voice_feedback_queue = queue.Queue()
 # Initialize threa-safe queue for sending auth logs to server
 logger_queue = queue.Queue()
 
+# Initialize thread-safe queue for sending notifications to Telegram
+telegram_notification_queue = queue.Queue()
+
 # Define function to handle voice feedback
 def handle_voice_feedback():
     while True:
@@ -47,6 +50,15 @@ def handle_logger():
             send_auth_log_to_server(log['status'], log['type'], log['message'])
         time.sleep(0.1)
 
+# handle telegram notifications
+def handle_telegram_notifications():
+    while True:
+        if not telegram_notification_queue.empty():
+            notification = telegram_notification_queue.get()
+            send_message(notification['message'], notification['photo'])
+        time.sleep(0.1)
+
+
 # Start thread for handling voice feedback
 voice_thread = threading.Thread(target=handle_voice_feedback, daemon=True)
 voice_thread.start()
@@ -55,26 +67,46 @@ voice_thread.start()
 logger_thread = threading.Thread(target=handle_logger, daemon=True)
 logger_thread.start()
 
-def send_message(message):
-    # Send a message to the Telegram bot
-    url = f'https://api.telegram.org/bot{config.telegram_bot_token}/sendMessage'
+# Start thread for handling sending notifications to Telegram
+telegram_notification_thread = threading.Thread(target=handle_telegram_notifications, daemon=True)
+telegram_notification_thread.start()
+
+# Define function to send message to Telegram
+def send_message(message, photo=None):
+    if config.telegram_notifications == False:
+        return
+    api_url = f"https://api.telegram.org/bot{config.telegram_bot_token}/sendMessage"
     data = {
         'chat_id': config.telegram_chat_id,
         'text': message,
         'parse_mode': 'Markdown'
     }
-    requests.post(url, data=data)
+    try:
+        response = requests.post(api_url, json=data, verify=False)
+        if response.status_code == 200:  # 200 indicates successful request
+            print("Telegram notification sent successfully")
+        else:
+            print(f"Failed to send Telegram notification: {response.status_code} - {response.text}")
+    except requests.exceptions.RequestException as e:
+        print(f"Request error: {e}")
 
-def send_photo(photo_path):
-    # Send a photo to the Telegram bot
-    url = f'https://api.telegram.org/bot{config.telegram_bot_token}/sendPhoto'
-    data = {
-        'chat_id': config.telegram_chat_id,
-    }
-    files = {
-        'photo': open(photo_path, 'rb')
-    }
-    requests.post(url, data=data, files=files)
+    if photo:
+        api_url = f"https://api.telegram.org/bot{config.telegram_bot_token}/sendPhoto"
+        data = {
+            'chat_id': config.telegram_chat_id,
+            'photo': photo,
+            'caption': message,
+            'parse_mode': 'Markdown'
+        }
+        try:
+            response = requests.post(api_url, json=data, verify=False)
+            if response.status_code == 200:  # 200 indicates successful request
+                print("Telegram notification sent successfully")
+            else:
+                print(f"Failed to send Telegram notification: {response.status_code} - {response.text}")
+        except requests.exceptions.RequestException as e:
+            print(f"Request error: {e}")
+
 
 def send_auth_log_to_server(status, type, message):
     if config.auth_logging_enabled == False:

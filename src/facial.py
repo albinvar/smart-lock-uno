@@ -80,8 +80,16 @@ def recognize_face(ser):
                         f"Unlock method : facial authentication\n"\
                         f"Unlock duration : {config.camera_authroized_delay} sec \n"\
                         f"Unlock action : unlock"
+                        
+                        # add the notification message to the telegram notification queue
                         if config.telegram_notifications:
-                            shared.send_message(notification_message)
+                            shared.telegram_notification_queue.put({
+                                'message': notification_message,
+                                'photo': None
+                            })
+
+                        # debug telegram notification queue
+                        print(shared.telegram_notification_queue.full())
 
                         # code for logging authentication events to the server.
                         if config.auth_logging_enabled:
@@ -117,18 +125,19 @@ def recognize_face(ser):
 
                     unauthorized_count = 0
 
-                    # send photo to telegram if telegram notifications is enabled
-                    if config.telegram_notifications:
-                        shared.send_photo(file_name)
-
                     voice_output(name, False)
                     
                     notification_message = f"🚪 *Intruder Detected*\n\n"\
                        f"*details*\n\n"\
                        f"Unlock method: facial recognition\n"\
                        f"Unlock action: unlock"
+                    
+                    # add the notification message to the telegram notification queue
                     if config.telegram_notifications:
-                            shared.send_message(notification_message)
+                        shared.telegram_notification_queue.put({
+                            'message': notification_message,
+                            'photo': file_name
+                        })
 
                     # code for logging authentication events to the server
                     if config.auth_logging_enabled:
