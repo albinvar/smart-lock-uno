@@ -4,14 +4,13 @@ import queue
 import threading
 import pyttsx3
 import time
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
+import urllib3
+from urllib3.exceptions import InsecureRequestWarning
 
 # Suppress SSL warnings
-requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-
+urllib3.disable_warnings(InsecureRequestWarning)
 
 ser = None
-
 
 # Initialize pyttsx3 engine
 engine = pyttsx3.init()
