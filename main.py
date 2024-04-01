@@ -10,6 +10,7 @@ import config
 from src.facial import recognize_face
 from src.rfid import rfid_processor
 from src.website import app
+from src.voice_assistant import initialize_sinric
 
 # Create a shared serial object
 # try to open the serial port
@@ -32,6 +33,10 @@ if 'card' in config.auth_methods:
     rfid_thread = threading.Thread(target=rfid_processor, args=(shared.ser, config.authorized_cards))
     rfid_thread.daemon = True
     rfid_thread.start()
+if 'voice_assistant' in config.auth_methods:
+    sinric_thread = threading.Thread(target=initialize_sinric, args=(shared.ser,))
+    sinric_thread.daemon = True
+    sinric_thread.start()
 if 'api' in config.auth_methods:
     web_thread = threading.Thread(target=app.run, kwargs={'host': '0.0.0.0'})
     web_thread.daemon = True

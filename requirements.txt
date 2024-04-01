@@ -5,3 +5,4 @@ pyserial==3.5
 bcrypt==4.0.1
 pyttsx3==2.90
 requests==2.28.2
+sinricpro==2.7.3
